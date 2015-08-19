@@ -2,7 +2,7 @@ var model = {
   "sites": [
     {
       "name": "Fruit World delivery list",
-      "url": "https:/www.fortunenz.github.io/fruitworld-list",
+      "url": "http://fortunenz.github.io/fruitworld-list/",
       "permission": "admin"
     }
   ],

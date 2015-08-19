@@ -57,6 +57,28 @@
   width: 100%;
 }
 
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Header */
+header {
+  text-align: center;
+}
+
+.title {
+  font-family: 'Lora', serif;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.logo {
+  position: relative;
+  top: 15px;
+  width: 50px;
+  margin-right: 8px;
+}
+
 /* Log in menu classes */
 
 .login-card {
@@ -146,10 +168,4 @@
 
 .login-card a:hover {
   opacity: 1;
-}
-
-.login-help {
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
 }

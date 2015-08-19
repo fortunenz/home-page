@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fortune Enterprises</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
-    <script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
     <script src="bower_components/jquery-2.1.4.min/jquery-2.1.4.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/model.js"></script>
@@ -16,25 +15,21 @@
   </head>
   <body class="container" ng-controller="mainController as main">
     <header class="row">
-      <h1 class="col-12">Fortune Enterprises</h1>
+      <h1 class="col-12 title"><img class="logo" src="images/logo.png">Fortune Enterprises Ltd</h1>
       <p class="col-12">Welcome to the Fortune Enterprises home page</p>
     </header>
-    <div class="login-card">
+    <div class="login-card" ng-show="!main.access">
       <h2>Log-in</h2><br>
       <form>
-        <input type="text" name="user" placeholder="Username">
-        <input type="password" name="pass" placeholder="Password">
-        <input type="submit" name="login" class="login login-submit" value="login">
+        <input type="text" name="user" placeholder="Username" ng-model="main.userName">
+        <input type="password" name="pass" placeholder="Password" ng-model="main.password">
+        <input type="submit" name="login" class="login login-submit" value="login" ng-click="main.login()">
       </form>
-
-      <div class="login-help">
-        <a href="#">Register</a> • <a href="#">Forgot Password</a>
-      </div>
     </div>
     <main class="row" ng-controller="functionController as function" ng-show="main.access">
       <h2 class="col-12">Please choose one of the below options</h2>
       <div ng-repeat="site in function.sites" class="siteList">
-        <a href="site.url" target="_blank">
+        <a href="{{site.url}}" target="_blank">
           <h3>{{site.name}}</h3>
         </a>
       </div>
