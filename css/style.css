@@ -79,6 +79,10 @@ header {
   margin-right: 8px;
 }
 
+.siteList {
+  text-align: center;
+}
+
 /* Log in menu classes */
 
 .login-card {

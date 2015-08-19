@@ -11,7 +11,7 @@
     self.login = function() {
 
       for (i = 0, len = self.users.length; i < len; i++) {
-        if (self.users[i].name == self.userName && self.users[i].password == self.password) {
+        if (self.users[i].userName.toLowerCase() == self.userName.toLowerCase() && self.users[i].password == self.password) {
           self.access = true;
         }
       }

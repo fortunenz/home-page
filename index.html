@@ -27,12 +27,14 @@
       </form>
     </div>
     <main class="row" ng-controller="functionController as function" ng-show="main.access">
-      <h2 class="col-12">Please choose one of the below options</h2>
-      <div ng-repeat="site in function.sites" class="siteList">
-        <a href="{{site.url}}" target="_blank">
+      <h2 class="col-12 siteList">Please choose one of the below options:</h2>
+      <a href="{{site.url}}" target="_blank">
+        <div ng-repeat="site in function.sites" class="siteList">
+
           <h3>{{site.name}}</h3>
-        </a>
-      </div>
+
+        </div>
+      </a>
     </main>
   </body>
 </html>
