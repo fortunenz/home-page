@@ -6,10 +6,15 @@
     self.access = false;
     self.userName = "";
     self.password = "";
+    self.users = model.users;
 
     self.login = function() {
-      console.log(self.userName + self.password);
-      self.access = true;
+
+      for (i = 0, len = self.users.length; i < len; i++) {
+        if (self.users[i].name == self.userName && self.users[i].password == self.password) {
+          self.access = true;
+        }
+      }
     }
   });
 
