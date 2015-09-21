@@ -58,7 +58,7 @@
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Ariel', sans-serif;
 }
 
 /* Header */
@@ -95,9 +95,8 @@ header {
   overflow: hidden;
 }
 
-.login-card h1 {
-  font-weight: 100;
-  text-align: center;
+.login-card h2 {
+  margin  : 0;
   font-size: 2.3em;
 }
 
@@ -108,7 +107,7 @@ header {
   position: relative;
 }
 
-.login-card input[type=text], input[type=password] {
+.login-card input[type=text], input[type=password], input[type=email] {
   height: 44px;
   font-size: 16px;
   width: 100%;
