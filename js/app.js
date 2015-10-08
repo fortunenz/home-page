@@ -5,7 +5,14 @@
 
   app.controller("mainController", function($scope) {
     var self = this;
-    self.logged = false;
+
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+      self.logged = true;
+    } else {
+      self.logged = false;
+    }
+
     self.loggedName = "";
     self.loggedPass = "";
     self.user;
@@ -56,5 +63,37 @@
         }
       });
     };
+  });
+
+  app.controller("itemController", function($scope) {
+    var self = this;
+
+    self.code = "";
+    self.description = "";
+    self.quantitiy = "";
+    self.packaging = "";
+    self.orderAs = "";
+    self.ordered = 0;
+
+    self.create = function() {
+      console.log("hi from items");
+    }
+  });
+
+  app.controller("customerController", function($scope) {
+    var self = this;
+
+    self.name = "";
+    self.short = "";
+    self.acc = "";
+    self.address = "";
+    self.city = "";
+    self.type = "";
+    self.shippingComment = "";
+    self.clicked = false;
+
+    self.create = function() {
+      console.log("hihi from customers");
+    }
   });
 })();
