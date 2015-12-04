@@ -28,36 +28,45 @@
     <!-- Creating more users -->
     <div class="row">
       <div class="login-card col-4" ng-show="main.logged">
-        <h2>Sign-up</h2><br>
-        <form>
-          <input type="text" name="user" placeholder="First name" ng-model="main.firstName">
-          <input type="text" name="user" placeholder="Last name" ng-model="main.lastName">
-          <input type="text" name="user" placeholder="Username" ng-model="main.userName">
-          <input type="password" name="pass" placeholder="Password" ng-model="main.password">
-          <input type="email" name="email" placeholder="Email" ng-model="main.email">
-          <input type="text" name="access" placeholder="User Access" ng-model="main.access">
-          <input type="submit" name="login" class="login login-submit" value="Sign Up" ng-click="main.signUp()">
+        <h2>Sign-up</h2>
+        <p>Master Admin use only</p>
+        <form ng-submit="main.signUp()">
+          <input type="text" name="user" placeholder="First name" ng-model="main.firstName" required>
+          <input type="text" name="user" placeholder="Last name" ng-model="main.lastName" required>
+          <input type="text" name="user" placeholder="Username" ng-model="main.userName" required>
+          <input type="password" name="pass" placeholder="Password" ng-model="main.password" required>
+          <input type="email" name="email" placeholder="Email" ng-model="main.email" required>
+          <input type="text" name="access" placeholder="User Access" ng-model="main.access" required>
+          <input type="submit" name="login" class="login login-submit" value="Sign Up">
         </form>
       </div>
 
       <!-- Adding an item -->
       <div class="login-card col-4" ng-show="main.logged" ng-controller="itemController as item">
         <h2>Add item</h2><br>
-        <form>
-          <input type="text" placeholder="Code" ng-model="item.code">
-          <input type="text" placeholder="Description" ng-model="item.description">
-          <input type="text" placeholder="Unit" ng-model="item.unit">
-          <input type="text" placeholder="Quantitiy" ng-model="item.quantitiy">
-          <input type="text" placeholder="Packaging" ng-model="item.packaging">
-          <input type="text" placeholder="Order As" ng-model="item.orderAs">
-          <input type="submit" name="login" class="login login-submit" value="Sign Up" ng-click="item.create()">
+        <form ng-submit="item.create()">
+          <label>Code</label>
+          <input type="text" placeholder="SING_L" ng-model="item.code" required>
+          <label>Description</label>
+          <input type="text" placeholder="White singlet bag (Large)" ng-model="item.description" required>
+          <label>Unit</label>
+          <input type="text" placeholder="1000 or Ctn or Roll or Pcs or etc" ng-model="item.unit" required>
+          <label>Quantitiy</label>
+          <input type="text" placeholder="2000" ng-model="item.quantitiy" required>
+          <label>Packaging</label>
+          <input type="text" placeholder="2,000 pcs/ctn" ng-model="item.packaging" required>
+          <label>Normal Price</label>
+          <input type="text" ng-model="item.defaultPrice" onclick="this.select()" required>
+          <label>Order as</label>
+          <input type="text" placeholder="ctn or pkt or roll or etc" ng-model="item.orderAs" required>
+          <input type="submit" name="login" class="login login-submit" value="Create Item">
         </form>
       </div>
 
       <!-- Adding a customer -->
       <div class="login-card col-4" ng-show="main.logged" ng-controller="customerController as customer">
         <h2>Add customer</h2><br>
-        <form>
+        <form ng-submit="customer.create()">
           <input type="text" placeholder="Name" ng-model="customer.name">
           <input type="text" placeholder="Short Name" ng-model="customer.short">
           <input type="text" placeholder="Account Number" ng-model="customer.acc">
@@ -65,7 +74,7 @@
           <input type="text" placeholder="City" ng-model="customer.city">
           <input type="text" placeholder="Type" ng-model="customer.type">
           <input type="text" placeholder="Shipping Comment" ng-model="customer.shippingComment">
-          <input type="submit" name="login" class="login login-submit" value="Sign Up" ng-click="customer.create()">
+          <input type="submit" name="login" class="login login-submit" value="Sign Up">
         </form>
       </div>
     </div>
