@@ -14,7 +14,7 @@
   <body class="container" ng-controller="mainController as main">
     <header class="row">
       <h1 class="col-12 title"><img class="logo" src="images/logo.png">Fortune Enterprises Ltd</h1>
-      <p class="col-12">Welcome to the Fortune Enterprises sign up page</p>
+      <p class="col-12">Welcome to the Fortune Enterprises creation page</p>
     </header>
     <div class="login-card" ng-show="!main.logged">
       <h2>Log-in</h2><br>
@@ -57,7 +57,7 @@
           <input type="text" placeholder="2,000 pcs/ctn" ng-model="item.packaging" required>
           <label>Normal Price</label>
           <input type="text" ng-model="item.defaultPrice" onclick="this.select()" required>
-          <label>Order as</label>
+          <label>Order As</label>
           <input type="text" placeholder="ctn or pkt or roll or etc" ng-model="item.orderAs" required>
           <input type="submit" name="login" class="login login-submit" value="Create Item">
         </form>
@@ -67,14 +67,34 @@
       <div class="login-card col-4" ng-show="main.logged" ng-controller="customerController as customer">
         <h2>Add customer</h2><br>
         <form ng-submit="customer.create()">
-          <input type="text" placeholder="Name" ng-model="customer.name">
-          <input type="text" placeholder="Short Name" ng-model="customer.short">
-          <input type="text" placeholder="Account Number" ng-model="customer.acc">
-          <input type="text" placeholder="Address" ng-model="customer.address">
-          <input type="text" placeholder="City" ng-model="customer.city">
-          <input type="text" placeholder="Type" ng-model="customer.type">
-          <input type="text" placeholder="Shipping Comment" ng-model="customer.shippingComment">
-          <input type="submit" name="login" class="login login-submit" value="Sign Up">
+          <label>Customer Name</label>
+          <input type="text" placeholder="Chen Enterprises" ng-model="customer.name" required>
+          <label>Short Name</label>
+          <input type="text" placeholder="chenEnt" ng-model="customer.short" required>
+          <label>Account Number</label>
+          <input type="text" placeholder="997" ng-model="customer.acc" required>
+          <label>Address</label>
+          <input type="text" placeholder="123 Fake Street, Otahuhu" ng-model="customer.address" required>
+          <label>City</label>
+          <input type="text" placeholder="Auckland" ng-model="customer.city" required>
+          <label>Customer Type</label>
+          <select ng-model="customer.type" required>
+            <option value="">Select one</option>
+            <option value="Delivery">Delivery</option>
+            <option value="Out of Auckland">Out of Auckland</option>
+            <option value="Invoice">Invoice</option>
+            <option value="Fruit World">Fruit World</option>
+            <option value="Supa Fruit Mart">Supa Fruit Mart</option>
+            <option value="Taiping Trading">Taiping</option>
+          </select>
+          <br>
+          <p ng-show="customer.type == 'Invoice'" class="gstP">Prices GST included?<br>
+            False:<input type="radio" name="gst" value="false" checked> True:<input type="radio" name="gst" value="true">
+          </p>
+          <br>
+          <label>Shipping Comment</label>
+          <input type="text" placeholder="Please ring before delivery" ng-model="customer.shippingComment">
+          <input type="submit" name="login" class="login login-submit" value="Create Customer">
         </form>
       </div>
     </div>

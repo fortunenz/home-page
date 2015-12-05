@@ -83,6 +83,14 @@ header {
   text-align: center;
 }
 
+select {
+  font-size: 16px;
+}
+
+.gstP {
+  margin-bottom: 0;
+}
+
 /* Log in menu classes */
 
 .login-card {

@@ -1,6 +1,7 @@
 (function() {
   Parse.initialize("p45yej86tibQrsfKYCcj6UmNw4o7b6kxtsobZnmA", "fXSkEhDGakCYnVv5OOdAfWDmjAuQvlnFI5KOwIUO");
   var Items = Parse.Object.extend("Items");
+  var Customers = Parse.Object.extend("Customers");
 
   var app = angular.module("homePageApp", []);
 
@@ -57,6 +58,7 @@
           self.password = "";
           self.email = "";
           self.access = "";
+          $scope.$apply();
         },
         error: function(newUser, error) {
           // Show the error message somewhere and let the user try again.
@@ -96,6 +98,7 @@
           self.packaging = "";
           self.defaultPrice = 0;
           self.orderAs = "";
+          $scope.$apply();
         },
         error: function(item, error) {
           // Execute any logic that should take place if the save fails.
@@ -115,11 +118,41 @@
     self.address = "";
     self.city = "";
     self.type = "";
+    self.includeGST = false;
     self.shippingComment = "";
-    self.clicked = false;
 
     self.create = function() {
       console.log("hihi from customers");
+      var newCustomer = new Customers();
+      newCustomer.set("name", self.name);
+      newCustomer.set("short", self.short);
+      newCustomer.set("acc", self.acc);
+      newCustomer.set("address", self.address);
+      newCustomer.set("city", self.city);
+      newCustomer.set("type", self.type);
+      if (self.shippingComment.trim().length !== 0) {
+        newCustomer.set("shippingComment", self.shippingComment);
+      }
+      newCustomer.save(null, {
+        success: function(customer) {
+          console.log('New object created with objectId: ' + customer.id);
+          alert("Your new customer has been created!")
+          self.name = "";
+          self.short = "";
+          self.acc = "";
+          self.address = "";
+          self.city = "";
+          self.type = "";
+          self.includeGST = false;
+          self.shippingComment = "";
+          $scope.$apply();
+        },
+        error: function(customer, error) {
+          // Execute any logic that should take place if the save fails.
+          // error is a Parse.Error with an error code and message.
+          console.log('Failed to create new object, with error code: ' + error.message);
+        }
+      });
     }
   });
 })();
