@@ -89,7 +89,7 @@
           </select>
           <br>
           <p ng-show="customer.type == 'Invoice'" class="gstP">Prices GST included?<br>
-            False:<input type="radio" name="gst" value="false" checked> True:<input type="radio" name="gst" value="true">
+            False:<input type="radio" name="gst" value="false" ng-click="customer.includeGST = false" checked> True:<input type="radio" name="gst" value="true" ng-click="customer.includeGST = true">
           </p>
           <br>
           <label>Shipping Comment</label>
