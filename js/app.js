@@ -94,6 +94,7 @@
           newItem.set("description", self.description);
           newItem.set("unit", self.unit);
           newItem.set("quantity", parseInt(self.quantitiy));
+          newItem.set("packaging", parseInt(self.packaging));
           newItem.set("price", parseInt(self.defaultPrice));
           newItem.set("orderAs", self.orderAs.toLowerCase());
           newItem.save(null, {
