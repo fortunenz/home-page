@@ -5,44 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fortune Enterprises</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <script src="https://www.parsecdn.com/js/parse-1.6.2.min.js"></script>
     <link href="css/style.css" rel="stylesheet">
+
     <script src="bower_components/jquery-2.1.4.min/jquery-2.1.4.min.js"></script>
-    <script src="js/angular.min.js"></script>
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
     <script src="js/app.js"></script>
   </head>
+
   <body class="container" ng-controller="mainController as main">
     <header class="row">
       <h1 class="col-12 title"><img class="logo" src="images/logo.png">Fortune Enterprises Ltd</h1>
       <p class="col-12">Welcome to the Fortune Enterprises creation page</p>
     </header>
-    <div class="login-card" ng-show="!main.logged">
+    <div class="login-card" ng-show="!access">
       <h2>Log-in</h2><br>
       <form>
-        <input type="text" name="user" placeholder="Username" ng-model="main.loggedName">
+        <input type="text" name="user" placeholder="Email" ng-model="main.loggedEmail">
         <input type="password" name="pass" placeholder="Password" ng-model="main.loggedPass">
         <input type="submit" name="login" class="login login-submit" value="Log In" ng-click="main.login()">
       </form>
     </div>
 
     <!-- Creating more users -->
-    <div class="row">
-      <div class="login-card col-4" ng-show="main.logged">
+    <div class="row"  ng-show="access">
+      <div class="login-card col-4">
         <h2>Sign-up</h2>
         <p>Master Admin use only</p>
         <form ng-submit="main.signUp()">
-          <input type="text" name="user" placeholder="First name" ng-model="main.firstName" required>
-          <input type="text" name="user" placeholder="Last name" ng-model="main.lastName" required>
-          <input type="text" name="user" placeholder="Username" ng-model="main.userName" required>
-          <input type="password" name="pass" placeholder="Password" ng-model="main.password" required>
           <input type="email" name="email" placeholder="Email" ng-model="main.email" required>
-          <input type="text" name="access" placeholder="User Access" ng-model="main.access" required>
+          <input type="password" name="pass" placeholder="Password" ng-model="main.password" required>
           <input type="submit" name="login" class="login login-submit" value="Sign Up">
         </form>
       </div>
 
       <!-- Adding an item -->
-      <div class="login-card col-4" ng-show="main.logged" ng-controller="itemController as item">
+      <div class="login-card col-4" ng-controller="itemController as item">
         <h2>Add item</h2><br>
         <form ng-submit="item.create()">
           <label>Code</label>
@@ -64,7 +68,7 @@
       </div>
 
       <!-- Adding a customer -->
-      <div class="login-card col-4" ng-show="main.logged" ng-controller="customerController as customer">
+      <div class="login-card col-4" ng-controller="customerController as customer">
         <h2>Add customer</h2><br>
         <form ng-submit="customer.create()">
           <label>Customer Name</label>
