@@ -6,101 +6,39 @@
     <title>Fortune Enterprises</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link href="css/style.css" rel="stylesheet">
-
-    <script src="bower_components/jquery-2.1.4.min/jquery-2.1.4.min.js"></script>
-
+    <link href="css/login.css" rel="stylesheet">
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-    <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
-
-    <script src="js/app.js"></script>
+    <script src="js/indexApp.js"></script>
   </head>
 
   <body class="container" ng-controller="mainController as main">
+    <div ng-style="loading"></div>
     <header class="row">
       <h1 class="col-12 title"><img class="logo" src="images/logo.png">Fortune Enterprises Ltd</h1>
-      <p class="col-12">Welcome to the Fortune Enterprises creation page</p>
+      <p class="col-12">Welcome to the Fortune Enterprises Home Page</p>
     </header>
+
+    <!-- IF the user hasn't logged in show this div -->
     <div class="login-card" ng-show="!access">
       <h2>Log-in</h2><br>
       <form>
-        <input type="text" name="user" placeholder="Email" ng-model="main.loggedEmail">
-        <input type="password" name="pass" placeholder="Password" ng-model="main.loggedPass">
-        <input type="submit" name="login" class="login login-submit" value="Log In" ng-click="main.login()">
+        <input type="text" name="user" placeholder="Email" ng-model="loggedEmail">
+        <input type="password" name="pass" placeholder="Password" ng-model="loggedPass">
+        <input type="submit" name="login" class="login login-submit" value="Log In" ng-click="login()">
       </form>
     </div>
 
-    <!-- Creating more users -->
-    <div class="row"  ng-show="access">
-      <div class="login-card col-4">
-        <h2>Sign-up</h2>
-        <p>Master Admin use only</p>
-        <form ng-submit="main.signUp()">
-          <input type="email" name="email" placeholder="Email" ng-model="main.email" required>
-          <input type="password" name="pass" placeholder="Password" ng-model="main.password" required>
-          <input type="submit" name="login" class="login login-submit" value="Sign Up">
-        </form>
-      </div>
-
-      <!-- Adding an item -->
-      <div class="login-card col-4" ng-controller="itemController as item">
-        <h2>Add item</h2><br>
-        <form ng-submit="item.create()">
-          <label>Code</label>
-          <input type="text" placeholder="SING_L" ng-model="item.code" required>
-          <label>Description</label>
-          <input type="text" placeholder="White singlet bag (Large)" ng-model="item.description" required>
-          <label>Unit</label>
-          <input type="text" placeholder="1000 or Ctn or Roll or Pcs or Pkt" ng-model="item.unit" required>
-          <label>Quantitiy</label>
-          <input type="text" placeholder="2000" ng-model="item.quantitiy" required>
-          <label>Packaging</label>
-          <input type="text" placeholder="2,000 pcs/ctn" ng-model="item.packaging" required>
-          <label>Normal Price</label>
-          <input type="text" ng-model="item.defaultPrice" onclick="this.select()" required>
-          <label>Order As</label>
-          <input type="text" placeholder="ctn or pkt or roll or etc" ng-model="item.orderAs" required>
-          <input type="submit" name="login" class="login login-submit" value="Create Item">
-        </form>
-      </div>
-
-      <!-- Adding a customer -->
-      <div class="login-card col-4" ng-controller="customerController as customer">
-        <h2>Add customer</h2><br>
-        <form ng-submit="customer.create()">
-          <label>Customer Name</label>
-          <input type="text" placeholder="Chen Enterprises" ng-model="customer.name" required>
-          <label>Short Name</label>
-          <input type="text" placeholder="chenEnt" ng-model="customer.short" required>
-          <label>Account Number</label>
-          <input type="text" placeholder="997" ng-model="customer.acc" required>
-          <label>Address</label>
-          <input type="text" placeholder="123 Fake Street, Otahuhu" ng-model="customer.address" required>
-          <label>City</label>
-          <input type="text" placeholder="Auckland" ng-model="customer.city" required>
-          <label>Customer Type</label>
-          <select ng-model="customer.type" required>
-            <option value="">Select one</option>
-            <option value="Delivery">Delivery</option>
-            <option value="Out of Auckland">Out of Auckland</option>
-            <option value="Invoice">Invoice</option>
-            <option value="Fruit World">Fruit World</option>
-            <option value="Supa Fruit Mart">Supa Fruit Mart</option>
-            <option value="Taiping Trading">Taiping</option>
-          </select>
-          <br>
-          <p ng-show="customer.type == 'Invoice'" class="gstP">Prices GST included?<br>
-            False:<input type="radio" name="gst" value="false" ng-click="customer.includeGST = false" checked> True:<input type="radio" name="gst" value="true" ng-click="customer.includeGST = true">
-          </p>
-          <br>
-          <label>Shipping Comment</label>
-          <input type="text" placeholder="Please ring before delivery" ng-model="customer.shippingComment">
-          <input type="submit" name="login" class="login login-submit" value="Create Customer">
-        </form>
-      </div>
+    <!-- IF the user has logged in show this div -->
+    <div ng-show="access">
+      <h2>Portals</h2><br>
+      <a href="http://www.fortunenz.com/">Website</a>
+      <a href="creation.html">Creation</a>
+      <a href="#">Packing Slips</a>
+      <a href="#">Fruit World Delivery List</a>
+      <button ng-click="logout()">Logout</button>
     </div>
   </body>
 </html>
