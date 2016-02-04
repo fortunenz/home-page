@@ -34,6 +34,7 @@
         } else {
           console.log("Authenticated successfully with payload:", authData);
           $scope.access = true;
+          $scope.$apply();
         }
       });
     };
