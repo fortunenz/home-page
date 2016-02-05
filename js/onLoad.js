@@ -11,9 +11,7 @@ $(window).resize(function() {
 
 // Hides the loading gif on load of the application
 window.onload = function() {
-
-  //$("#loading").hide();
-  //adjustCheckoutSize();
+  adjustCheckoutSize();
 };
 
 var sortByKey = function(array, key) {

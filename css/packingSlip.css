@@ -1,0 +1,264 @@
+h2 {
+  font-size: 100%;
+  margin-top: 5px;
+}
+
+.right {
+  float: right;
+}
+
+#notes {
+  position: relative;
+  left: 5%;
+  width: 90%;
+  resize: vertical;
+}
+
+.chooseShopHeader {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+li {
+  display: inline;
+}
+
+
+.item {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.clean-gray-btn-shop {
+  font: bold 12px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  height: 30px;
+}
+
+.clean-gray-btn-increment {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.customerList {
+  width: 90%;
+  margin: 2px auto;
+}
+
+.printBtn {
+  position: fixed;
+  top: 5px;
+  right: 0;
+  z-index: 4;
+}
+
+.shopList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Generic styling classes */
+.center {
+  text-align: center;
+}
+
+/* Styling for button that takes user back to top of the page */
+.backToTop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* Invoice checkout styling */
+#invoiceCheckout {
+  position: fixed;
+  top: 150px;
+  left: 50%;
+  width: 50%;
+  z-index: 5;
+}
+
+#invoiceInnerItems {
+  overflow-y: auto;
+}
+
+#invoiceTable {
+  width: 100%;
+}
+
+.invoiceQuantity {
+  width: 100px;
+}
+
+.invoiceCheckoutButtonsTable {
+  width: 100px;
+}
+
+.invoicePrice {
+  width: 100px;
+}
+
+.invoicePriceInput {
+  width: 80px;
+}
+
+.invoicePriceTotal {
+  width: 150px;
+}
+
+#invoiceTotalTable {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.invoiceCheckoutButtons {
+  float: right;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+
+/* Packing slip stylving */
+.packingTable {
+  border-collapse: collapse;
+}
+
+.packingTable, .packingT{
+  border: 1px solid black;
+}
+
+.packingTotalTable {
+  margin-top: 10px;
+}
+
+.packingPaymentInfo {
+  font-size: 11px;
+}
+
+.packingSign {
+  float: left;
+}
+
+.packingNotes {
+  float: right;
+  border-style: solid;
+  border-width: 1px;
+  width: 40%;
+}
+
+.packingChristmasNotes {
+  border-style: dashed;
+  float: right;
+  width: 40%;
+  font-size: 12px;
+}
+
+.packingNotesInner {
+  margin: 10px;
+}
+
+.shippingLabel {
+  font-size: 36pt;
+  text-align: center;
+}
+
+@media screen and (min-width: 1000px) {
+  /* Keeps the header and customer aditional details panel locked at the
+      top of the screen*/
+  .white {
+    background-color: white;
+    width: 100%;
+    height: 150px;
+    top: 0;
+    right: 20%;
+    position: fixed;
+    z-index: 1;
+  }
+
+  .greeting {
+    text-align: left;
+    margin: 5px 0 0 5px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 5;
+  }
+
+  #notes {
+    margin: 5px 0 0 5px;
+    position: fixed;
+    left: 0;
+    top: 80px;
+    z-index: 5;
+    resize: both;
+    max-width: 19%;
+    height: 100px;
+  }
+
+  #title {
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+  }
+
+  #customerDetails {
+    position: fixed;
+    left: 22.5%;
+    right: 22.5%;
+    top: 80px;
+    z-index: 2;
+    background-color: white;
+  }
+
+  #mainBody {
+    position: relative;
+    top: 140px;
+  }
+
+  nav {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .customerList {
+    width: 139px;
+  }
+
+  .shopList {
+    margin-left: 50px;
+  }
+
+  .clean-gray-btn-shop {
+    width: 150px;
+  }
+
+  .item {
+    position: relative;
+    left: 25%;
+  }
+}
+
+/* Makes the main body lower to accomodate for header space when screen is small*/
+@media screen and (min-width: 1001px) and (max-width: 1250px) {
+  #mainBody {
+    top: 150px;
+  }
+}
+
+@media print {
+  .break {
+    page-break-after: always;
+  }
+
+  .shippingLabel {
+    page-break-before: always;
+  }
+}

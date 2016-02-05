@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Packing Slip Generator</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/slip.css" rel="stylesheet">
+    <link href="css/packingSlip.css" rel="stylesheet">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/onLoad.js" async></script>
+    <script src="js/buildTable.js" async></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-controller="appCtrl as app" class="container">
+    <!-- The user must first login before they can use the application -->
+    <div ng-show="!access" class="no-print">
+      <h1 id="title" class="col-12"><img class="no-print logo" src="images/logo.png"> Packing Slip Generator</h1>
+
+      <div class="login-card">
+        <h2>Log-in</h2><br>
+        <form>
+          <input type="text" name="user" placeholder="Email" ng-model="userName">
+          <input type="password" name="pass" placeholder="Password" ng-model="app.password">
+          <input type="submit" name="login" class="login login-submit" value="login" ng-click="app.login()">
+        </form>
+      </div>
+    </div>
+
+    <!-- If the user has logged in they can use the functions -->
+    <div ng-show="access">
+      <div class="no-print">
+        <div class="white"></div>
+        <h1 id="title" class="col-12"><img class="no-print logo" src="images/logo.png"> <span ng-show="!app.invoice">Packing Slip Generator</span><span ng-show="app.invoice">Invoice Slip Generator</span></h1>
+        <div class="greeting">
+          <p>
+            Welcome back, {{name}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="app.logout()">Logout</button><span ng-show="!selectedCustomer.name==''"><button class="clean-gray-btn" ng-click="app.loadData()">Load last order</button></span>
+            <br>
+            Change to: <button class="clean-gray-btn" ng-click="app.changeView()"><span ng-show="!app.invoice">Invoice Slip</span><span ng-show="app.invoice">Packing slip</span></button>
+          </p>
+        </div>
+        <textarea id="notes" ng-model="app.notes" placeholder="Notes"></textarea>
+
+        <div id="customerDetails" class="center">
+          <span ng-show="!app.invoice">Backorder: <input ng-model="app.backOrder" type="checkbox">
+          <strong>| </strong></span><input ng-model="app.orderNo" onclick="this.select()" placeholder="Order no.">
+          <strong>| </strong> Date: <input id="datePicker" type="date" onclick="this.select()" ng-model="app.date">
+          <strong>| </strong> <input type="text" ng-model="searchBox" placeholder="Item search">
+          <br>
+          <h2><span ng-show="app.invoice">New: <input ng-model="app.invoiceNewCustomer" ng-click="app.resetCustomer()" type="checkbox"> | </span>Customer: <span ng-show="!app.invoiceNewCustomer">{{selectedCustomer.name}}</span> <span ng-show="app.invoiceNewCustomer"><input ng-model="selectedCustomer.name" placeholder="Name"> <input ng-model="selectedCustomer.address" placeholder="Address"></span></h2>
+
+          <hr>
+        </div>
+
+        <div id="mainBody">
+          <nav>
+            <ul>
+              <li class="center row" ng-show="!app.invoice">
+                <span ng-repeat="customerList in customers | limitTo: 5" ng-click="app.showList(customerList)" class="clean-gray-btn customerList">{{customerList.name}}</span>
+              </li>
+              <li class="center row" ng-show="app.invoice">
+                <span ng-click="app.showList(customers[5])" class="clean-gray-btn customerList">Invoice customers</span>
+              </li>
+              <li ng-repeat="customerList in customers">
+                <ul class="shopList" ng-show="customerList.show">
+                  <li ng-repeat="branch in customerList.array" ng-click="app.listClick(branch)" class="clean-gray-btn clean-gray-btn-shop">{{branch.name}}</li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="itemList">
+            <form id="orderForm" ng-submit="app.printPreview()">
+              <span ng-repeat="item in displayedItems" class="row item">
+                <strong class="col-12">
+                  {{item.description}}<span ng-show="item.code.includes('RE0')"> {{item.packaging}}</span>:</strong>
+                <input ng-change="app.checkoutList()" ng-model="item.ordered" type="number" value="0" min="0" step="0.01" class="col-7" onclick="this.select()">
+                <span class="col-4">
+                  {{item.orderAs}}
+                  <button type="button" class="clean-gray-btn clean-gray-btn-increment" ng-click="item.ordered = item.ordered+1; app.checkoutList()">+</button>
+                  <button type="button" class="clean-gray-btn clean-gray-btn-increment" ng-click="item.ordered = item.ordered-1; app.checkoutList()">-</button>
+                </span>
+                <br>
+              </span>
+              <input class="printBtn clean-gray-btn" type="submit" value="Print"/>
+            </form>
+            <button class="backToTop clean-gray-btn" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast')">Back to top</button>
+            <br>
+          </div>
+        </div>
+
+        <!-- The checkout list for packing slip view -->
+        <div id="checkout"  ng-show="!app.invoice">
+          <div id="checkoutHeader">
+            <br>
+            <h2>Items</h2>
+            <hr>
+          </div>
+          <div id="checkoutItems">
+            <p ng-repeat="item in app.checkoutItems">
+              <strong>{{item.description}}:</strong><br>
+              {{item.ordered}} {{item.orderAs}}
+              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = 0; app.checkoutList()">X</button>
+              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered-1; app.checkoutList()">-</button>
+              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered+1; app.checkoutList()">+</button>
+            </p>
+          </div>
+        </div>
+
+        <!-- The checkout list for invoice view -->
+        <div id="invoiceCheckout" ng-show="app.invoice">
+          <div id="invoiceInnerItems">
+            <table id="invoiceTable">
+              <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th class="invoiceCheckoutButtonsTable"></th>
+                <th class="invoicePrice">Price</th>
+                <th>Total</th>
+              </tr>
+              <tr ng-repeat="item in app.checkoutItems">
+                <td>{{item.description}}</td>
+                <td>{{item.ordered}} {{item.orderAs}}</td>
+                <td>
+                  <button type="button" class="clean-gray-btn invoiceCheckoutButtons" ng-click="item.ordered = 0; app.checkoutList()">X</button>
+                  <button type="button" class="clean-gray-btn invoiceCheckoutButtons" ng-click="item.ordered = item.ordered-1; app.checkoutList()">-</button>
+                  <button type="button" class="clean-gray-btn invoiceCheckoutButtons" ng-click="item.ordered = item.ordered+1; app.checkoutList()">+</button>
+                </td>
+                <td><form><strong ng-show="item.wrongPrice">*</strong><label>$</label><input class="invoicePriceInput" type="number" ng-change="app.priceChange(item)" ng-model="item.tempPrice" ng-keyup="app.defineTotalPrice()" min="0" step="0.01" onclick="this.select()"></form></td>
+                <td>{{item.tempPrice*item.ordered | currency}}</td>
+              </tr>
+            </table>
+          </div>
+
+          <table id="invoiceTotalTable">
+            <tr>
+              <th><span ng-show="selectedCustomer.includeGST">Total including GST</span><span ng-show="!selectedCustomer.includeGST">Sub total</span></th>
+              <td>{{app.subTotal | currency}}</td>
+            </tr>
+            <tr ng-show="!selectedCustomer.includeGST">
+              <th>GST</th>
+              <td>{{app.gst | currency}}</td>
+            </tr>
+            <tr ng-show="!selectedCustomer.includeGST">
+              <th>Total</th>
+              <td>{{app.grandTotal | currency}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div id="packingSlip">
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+.subHeader {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.checkboxes {
+  margin-bottom: 5px;
+}
+
+.item {
+  margin-top: 15px;
+}
+
+.saveOrderBtn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 4;
+}
+
+.clean-gray-btn-shop {
+  font: bold 15px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  width: 100%;
+}
+
+.clean-gray-btn-increment {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.shopList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#orderForm {
+  position: relative;
+  left: 5%;
+  width: 90%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+#print {
+  font-size: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Packing slip stylving */
+.packingSign {
+  margin-top: 50px;
+}
+
+@media screen and (min-width: 1000px) {
+  .clean-gray-btn-shop {
+    width: 23.5%;
+  }
+
+  .greeting {
+    display: inline;
+    margin: 5px 0 0 5px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 5;
+  }
+
+  #orderForm {
+    left: 12.5%;
+    margin: 0 auto;
+  }
+
+  #loadedOrders {
+    position: fixed;
+    width: 20%;
+    top: 80px;
+    overflow-y: auto;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  #packingSlip {
+    display: inline;
+  }
+
+  #print {
+    font-size: 10px;
+  }
+
+  .packingSlips {
+    page-break-before: always;
+  }
+}
