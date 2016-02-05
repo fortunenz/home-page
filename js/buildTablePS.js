@@ -1,10 +1,10 @@
 // Builds the packing slip
-var buildPackingSlips = function(appData, scope, filter) {
+var buildPackingSlips = function(scope, filter) {
   $("#packingSlip").empty();
 
   // If the user is using a new customer while in invoice view then set
   // irrelevent variables to null
-  if (appData.invoiceNewCustomer === true && appData.invoice === true) {
+  if (scope.invoiceNewCustomer === true && scope.invoice === true) {
     scope.selectedCustomer.short = "";
     scope.selectedCustomer.acc = "";
     scope.selectedCustomer.city = "";
@@ -12,7 +12,7 @@ var buildPackingSlips = function(appData, scope, filter) {
   }
 
   // Formats date
-  var tokens = appData.date.toString().split(" ");
+  var tokens = scope.date.toString().split(" ");
   var date = tokens[2] + " " + tokens[1] + " " + tokens[3];
 
   scope.slipNumber++;
@@ -23,7 +23,7 @@ var buildPackingSlips = function(appData, scope, filter) {
   // Header
   packingSlip += '<div class="row">';
   packingSlip += '<h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>';
-  if (appData.invoice === true) {
+  if (scope.invoice === true) {
     packingSlip += '<strong class="col-2 packingName">Invoice Slip</strong>';
   } else {
     packingSlip += '<strong class="col-2 packingName">Packing Slip</strong>';
@@ -54,7 +54,7 @@ var buildPackingSlips = function(appData, scope, filter) {
   packingSlip += '</p></div>';
   // Right side date + packing slip number
   packingSlip += '<div class="col-4">';
-  if (appData.invoice === true) {
+  if (scope.invoice === true) {
     packingSlip += '<p class="packingP">Invoice slip no.: ';
   } else {
     packingSlip += '<p class="packingP">Packing slip no.: ';
@@ -65,13 +65,13 @@ var buildPackingSlips = function(appData, scope, filter) {
   packingSlip += scope.selectedCustomer.acc;
   packingSlip += '</p>';
   packingSlip += '<p class="packingP">Order no.: ';
-  packingSlip += appData.orderNo;
+  packingSlip += scope.orderNo;
   packingSlip += '</p>';
   packingSlip += '<p class="packingP">Date: ' + date + '</p>';
   packingSlip += '</div></div>';
 
   // If the order is for a backorder
-  if (appData.backOrder === true && appData.invoice === false) {
+  if (scope.backOrder === true && scope.invoice === false) {
     packingSlip += '<div class="center"><strong>Backorder</strong></div>';
   }
 
@@ -81,30 +81,30 @@ var buildPackingSlips = function(appData, scope, filter) {
   // Adds the required columns based on whether user is in invoice or
   // packing slip view as not all are required for either view
   table += '<table class="packingTable"><tr><th class="packingT">Code</th><th class="packingT">Description</th>';
-  if (appData.invoice === false) {
+  if (scope.invoice === false) {
     table += '<th class="packingT">Packaging</th>';
   }
   table += '<th class="packingT">Quantity</th><th class="packingT">Carton</th>';
-  if (appData.invoice === true) {
+  if (scope.invoice === true) {
     table += '<th class="packingT">Price</th><th class="packingT">Total</th></tr>';
   }
-  table += buildPackingRow(appData, filter, scope);
+  table += buildPackingRow(scope, filter);
   table += '</table>';
 
   packingSlip += table;
 
   // Displays totals of invoice if user is in invoice view
-  if (appData.invoice === true) {
+  if (scope.invoice === true) {
     packingSlip += '<div class="packingTotalTable right">';
     packingSlip += '<table>';
     // If the customer has their prices as including GST the sub total price
     // will be treated as the grand total instead
     if (scope.selectedCustomer.includeGST !== true) {
-      packingSlip += buildTotalRow("Sub Total", filter('currency')(appData.subTotal));
-      packingSlip += buildTotalRow("GST", filter('currency')(appData.gst));
-      packingSlip += buildTotalRow("Total", filter('currency')(appData.grandTotal));
+      packingSlip += buildTotalRow("Sub Total", filter('currency')(scope.subTotal));
+      packingSlip += buildTotalRow("GST", filter('currency')(scope.gst));
+      packingSlip += buildTotalRow("Total", filter('currency')(scope.grandTotal));
     } else {
-      packingSlip += buildTotalRow("Total including GST", filter('currency')(appData.subTotal));
+      packingSlip += buildTotalRow("Total including GST", filter('currency')(scope.subTotal));
     }
     packingSlip += '</table>';
     packingSlip += '</div>';
@@ -126,7 +126,7 @@ var buildPackingSlips = function(appData, scope, filter) {
     packingSlip += '<div class="packingSign">';
     packingSlip += '<p>Name: _________________________________</p><br>';
     packingSlip += '<p>Signature: _____________________________</p>';
-    if (appData.invoice === true && scope.selectedCustomer.acc !== " ") {
+    if (scope.invoice === true && scope.selectedCustomer.acc !== " ") {
       packingSlip += '<p class="packingPaymentInfo">Please pay direct to bank account: Westpac 03-0166-0248508-00</p>';
     }
     packingSlip += '</div>';
@@ -135,9 +135,9 @@ var buildPackingSlips = function(appData, scope, filter) {
   }
 
   // Appends notes to the bottom of the page
-  if (appData.notes.trim().length !== 0) {
+  if (scope.notes.trim().length !== 0) {
     packingSlip += '<div class="packingNotes"><p class="packingNotesInner">';
-    packingSlip += appData.notes;
+    packingSlip += scope.notes;
     packingSlip += '</p></div>';
   }
 
@@ -157,7 +157,7 @@ var buildPackingSlips = function(appData, scope, filter) {
 
   // If the customer is out of Auckland they most likely require shipping
   // so shipping addresses will be printed automatically if the user requires
-  if (scope.selectedCustomer.city !== "Auckland" && appData.invoiceNewCustomer === false) {
+  if (scope.selectedCustomer.city !== "Auckland" && scope.invoiceNewCustomer === false) {
     var check = confirm("Would you like to print shipping addresses for your customer?");
     if (check) {
       var labelAmount = prompt("How many addresses do you need?", 0);
@@ -190,12 +190,12 @@ var buildPackingSlips = function(appData, scope, filter) {
 
   // Saves the shop data to be reloaded if most recent order needs to be
   // modified at a later stage
-  if (appData.invoiceNewCustomer === false) {
+  if (scope.invoiceNewCustomer === false) {
     var tempJson = {};
 
     tempJson.short =  scope.selectedCustomer.short;
-    tempJson.notes = appData.notes;
-    tempJson.orderNo = appData.orderNo;
+    tempJson.notes = scope.notes;
+    tempJson.orderNo = scope.orderNo;
 
     for ( i = 0; i < scope.items.length; i++) {
       if (scope.items[i].ordered > 0) {
@@ -213,7 +213,7 @@ var buildPackingSlips = function(appData, scope, filter) {
 
   // If customer is being invoiced prices will be checked and if needed
   // will be saved for next time
-  if (appData.invoice === true && appData.invoiceNewCustomer === false) {
+  if (scope.invoice === true && scope.invoiceNewCustomer === false) {
     for (var i = 0, len = scope.items.length; i < len; i++) {
       if (scope.items[i].ordered > 0 && scope.items[i].tempPrice !== scope.selectedCustomer[scope.items[i].code]) {
         var tempJson = {};
@@ -227,10 +227,10 @@ var buildPackingSlips = function(appData, scope, filter) {
     }
   }
 
-  appData.resetApp();
+  scope.resetApp();
 };
 
-var buildPackingRow = function(appData, filter, scope) {
+var buildPackingRow = function(scope, filter) {
   var table = "";
   var quantity = 0;
   var tempItemOrdered;
@@ -244,7 +244,7 @@ var buildPackingRow = function(appData, filter, scope) {
       table += '<td class="packingT">';
       table += tempItem.description;
       table += '</td>';
-      if (appData.invoice === false) {
+      if (scope.invoice === false) {
         table += '<td class="packingT">';
         table += tempItem.packaging;
         table += '</td>';
@@ -337,7 +337,7 @@ var buildPackingRow = function(appData, filter, scope) {
       table += '</td>';
 
       // Displays price and total for items if the user is in invoice view
-      if (appData.invoice === true) {
+      if (scope.invoice === true) {
         table += '<td class="packingT">';
         table += filter('currency')(tempItem.tempPrice);
         table += '</td><td class="packingT">';
