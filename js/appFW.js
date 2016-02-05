@@ -113,21 +113,6 @@
       $scope.password = "";
     };
 
-    // Loops through items in list and if it matches what's in the search bar
-    // it will display the item
-    $scope.search = function() {
-      if ($scope.searchBox == " ") {
-        $scope.displayedItems = $scope.items;
-      } else {
-        $scope.displayedItems = [];
-        for (var i = 0, len = $scope.items.length; i < len; i++) {
-          if ($scope.items[i].description.toLowerCase().includes($scope.searchBox.toLowerCase()) || $scope.items[i].code.toLowerCase().includes($scope.searchBox.toLowerCase())) {
-            $scope.displayedItems.push($scope.items[i]);
-          }
-        }
-      }
-    };
-
     // Changed the viewOrder value when clicked
     $scope.changeView = function() {
       if ($scope.viewOrder.bool === true) {
@@ -297,5 +282,20 @@
         }
       }
     };
+  });
+
+  // Watches if the search box and changes the displayed items accordingly
+  // if the user searches for items
+  $scope.$watch("searchBox", function() {
+    if ($scope.searchBox.trim().length === 0) {
+      $scope.displayedItems = $scope.items;
+    } else {
+      $scope.displayedItems = [];
+      for (var i = 0, len = $scope.items.length; i < len; i++) {
+        if ($scope.items[i].description.toLowerCase().includes($scope.searchBox.toLowerCase()) || $scope.items[i].code.toLowerCase().includes($scope.searchBox.toLowerCase())) {
+          $scope.displayedItems.push($scope.items[i]);
+        }
+      }
+    }
   });
 })();
