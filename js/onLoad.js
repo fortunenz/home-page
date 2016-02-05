@@ -48,3 +48,16 @@ var stopScrollInvoice = function() {
     });
   }, 100);
 };
+
+// Inserts approprate commas for quantities for ease of viewing when invoicing
+var insertComma = function(number) {
+  if (number.length < 4) {
+    return number;
+  } else if (number.length > 6) {
+    number = number.slice(0,number.length-6) + "," + number.slice(number.length-6, number.length-3) + "," + number.slice(number.length-3);
+    return number;
+  } else {
+    number = number.slice(0,number.length-3) + "," + number.slice(number.length-3);
+    return number;
+  }
+};

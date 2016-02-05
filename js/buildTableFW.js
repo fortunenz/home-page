@@ -216,15 +216,3 @@ var buildPackingRow = function(spreadsheetArray) {
 
   return table;
 };
-
-var insertComma = function(number) {
-  if (number.length < 4) {
-    return number;
-  } else if (number.length > 6) {
-    number = number.slice(0,number.length-6) + "," + number.slice(number.length-6, number.length-3) + "," + number.slice(number.length-3);
-    return number;
-  } else {
-    number = number.slice(0,number.length-3) + "," + number.slice(number.length-3);
-    return number;
-  }
-};

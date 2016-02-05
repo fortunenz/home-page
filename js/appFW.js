@@ -31,7 +31,7 @@
 
         // updates the order number
         ref.child("slipNumber").on("value", function(snapshot) {
-          self.slipNumber = snapshot.val();
+          $scope.slipNumber = snapshot.val();
         });
         // Pulls all the past orders from server
         $scope.orders = $firebaseArray(ref.child('fruitWorldOrders'));
@@ -52,17 +52,15 @@
       }
     }
 
-    var self = this;
-
     // Login variables
-    self.password = "";
+    $scope.password = "";
 
     // Application variables
-    self.viewOrder = {
+    $scope.viewOrder = {
       id: "Print",
       bool: true
     };
-    self.selectedBranch = {
+    $scope.selectedBranch = {
       name: "",
       short: "",
       acc: "",
@@ -70,22 +68,22 @@
       city: "",
       selected: false
     };
-    self.searchBox = "";
-    self.viewList = false;
-    self.printableShop = [];
-    self.spreadsheetArray = [];
-    self.checkoutItems = [];
-    self.items = model.items;
-    self.displayedItems = self.items;
+    $scope.searchBox = "";
+    $scope.viewList = false;
+    $scope.printableShop = [];
+    $scope.spreadsheetArray = [];
+    $scope.checkoutItems = [];
+    $scope.items = model.items;
+    $scope.displayedItems = $scope.items;
     stopScroll();
-    self.slipNumber = 0;
+    $scope.slipNumber = 0;
 
     // Function to log the user in so they can use the program
-    self.login = function() {
+    $scope.login = function() {
       $("#loading").show();
       ref.authWithPassword({
         email    : $scope.userName,
-        password : self.password
+        password : $scope.password
       }, function(error, authData) {
         if (error) {
           console.log("Login Failed!", error);
@@ -96,7 +94,7 @@
           $scope.access = true;
           $("#loading").hide();
 
-          self.printableShop = [];
+          $scope.printableShop = [];
           $("#print").empty();
           $("#packingSlip").empty();
           $("#printButton").hide();
@@ -108,64 +106,64 @@
     };
 
     // Function to log the user out of applciation for security
-    self.logout = function() {
+    $scope.logout = function() {
       ref.unauth();
       $scope.access = false;
       $scope.userName = "";
-      self.password = "";
+      $scope.password = "";
     };
 
     // Loops through items in list and if it matches what's in the search bar
     // it will display the item
-    self.search = function() {
-      if (self.searchBox == " ") {
-        self.displayedItems = self.items;
+    $scope.search = function() {
+      if ($scope.searchBox == " ") {
+        $scope.displayedItems = $scope.items;
       } else {
-        self.displayedItems = [];
-        for (var i = 0, len = self.items.length; i < len; i++) {
-          if (self.items[i].description.toLowerCase().includes(self.searchBox.toLowerCase()) || self.items[i].code.toLowerCase().includes(self.searchBox.toLowerCase())) {
-            self.displayedItems.push(self.items[i]);
+        $scope.displayedItems = [];
+        for (var i = 0, len = $scope.items.length; i < len; i++) {
+          if ($scope.items[i].description.toLowerCase().includes($scope.searchBox.toLowerCase()) || $scope.items[i].code.toLowerCase().includes($scope.searchBox.toLowerCase())) {
+            $scope.displayedItems.push($scope.items[i]);
           }
         }
       }
     };
 
     // Changed the viewOrder value when clicked
-    self.changeView = function() {
-      if (self.viewOrder.bool === true) {
-        self.viewOrder.id = "Order";
-        self.viewOrder.bool = false;
+    $scope.changeView = function() {
+      if ($scope.viewOrder.bool === true) {
+        $scope.viewOrder.id = "Order";
+        $scope.viewOrder.bool = false;
       } else {
-        self.viewOrder.id = "Print";
-        self.viewOrder.bool = true;
+        $scope.viewOrder.id = "Print";
+        $scope.viewOrder.bool = true;
       }
     };
 
     // Appends data to the checkout list
-    self.checkoutList = function() {
+    $scope.checkoutList = function() {
       var temp;
-      for (var i = 0, len = self.items.length; i < len; i++) {
-        temp = $.inArray(self.items[i], self.checkoutItems);
-        if (self.items[i].ordered > 0) {
+      for (var i = 0, len = $scope.items.length; i < len; i++) {
+        temp = $.inArray($scope.items[i], $scope.checkoutItems);
+        if ($scope.items[i].ordered > 0) {
           if (temp === -1) {
-            self.checkoutItems.push(self.items[i]);
+            $scope.checkoutItems.push($scope.items[i]);
           }
         } else {
           if (temp > -1) {
-            self.checkoutItems.splice(temp, 1);
+            $scope.checkoutItems.splice(temp, 1);
           }
         }
       }
     };
 
     // Displays the list of shops that can be accessed
-    self.showList = function() {
-      if (self.viewList === false) {
-        self.viewList = true;
+    $scope.showList = function() {
+      if ($scope.viewList === false) {
+        $scope.viewList = true;
         $("#loadedOrders").css("display", "none");
         $("#checkout").css("display", "none");
       } else {
-        self.viewList = false;
+        $scope.viewList = false;
         $("#loadedOrders").css("display", "inline");
         var mq = window.matchMedia( "(min-width: 1000px)" );
         if (mq.matches) {
@@ -176,13 +174,13 @@
 
     // Loads all the saved data from previous orders
     // of a branch
-    self.listClick = function(data) {
-      self.showList();
-      self.selectedBranch.name = data.name;
-      self.selectedBranch.short = data.short;
-      self.selectedBranch.acc = data.acc;
-      self.selectedBranch.address = data.address;
-      self.selectedBranch.city = data.city;
+    $scope.listClick = function(data) {
+      $scope.showList();
+      $scope.selectedBranch.name = data.name;
+      $scope.selectedBranch.short = data.short;
+      $scope.selectedBranch.acc = data.acc;
+      $scope.selectedBranch.address = data.address;
+      $scope.selectedBranch.city = data.city;
 
       $("#loadedOrders").empty();
 
@@ -192,7 +190,7 @@
       $("#loadedOrders").append(temp);
 
       for (var i = $scope.orders.length; i > 0; i--) {
-        if ($scope.orders[i-1].short == self.selectedBranch.short) {
+        if ($scope.orders[i-1].short == $scope.selectedBranch.short) {
           temp = '<div class="oldOrders"><p>File last modified: ' +
           $scope.orders[i-1].time +
           ' <button class="clean-gray-btn" ng-click="app.loadOrder(' +
@@ -206,95 +204,95 @@
         }
       }
 
-      self.selectedBranch.selected = true;
+      $scope.selectedBranch.selected = true;
       $('html, body').animate({ scrollTop: 0 }, 'fast');
     };
 
     // Submit the order data to the server for later
     // printing
-    self.saveOrder = function() {
-      if (self.selectedBranch.name === "") {
+    $scope.saveOrder = function() {
+      if ($scope.selectedBranch.name === "") {
         alert("Please select a branch before you submit");
       } else {
         var tempJson = {};
 
-        tempJson.name = self.selectedBranch.name;
-        tempJson.short =  self.selectedBranch.short;
-        tempJson.acc =  self.selectedBranch.acc;
-        tempJson.address =  self.selectedBranch.address;
-        tempJson.city =  self.selectedBranch.city;
+        tempJson.name = $scope.selectedBranch.name;
+        tempJson.short =  $scope.selectedBranch.short;
+        tempJson.acc =  $scope.selectedBranch.acc;
+        tempJson.address =  $scope.selectedBranch.address;
+        tempJson.city =  $scope.selectedBranch.city;
         tempJson.time = new Date().toDateString();
 
-        for (var i = 0; i < self.items.length; i++) {
-          tempJson[self.items[i].code] = self.items[i].ordered;
+        for (var i = 0; i < $scope.items.length; i++) {
+          tempJson[$scope.items[i].code] = $scope.items[i].ordered;
         }
 
         var shopRef = new Firebase('https://popping-torch-7294.firebaseio.com/fruitWorldOrders');
         shopRef.push(tempJson);
-        alert("Thanks, Your order has been saved for " + self.selectedBranch.name + "!");
+        alert("Thanks, Your order has been saved for " + $scope.selectedBranch.name + "!");
 
         // Resets the view
-        self.selectedBranch.name = "";
-        self.selectedBranch.short = "";
-        self.selectedBranch.acc = "";
-        self.selectedBranch.address = "";
-        self.selectedBranch.city = "";
-        self.selectedBranch.selected = false;
-        for (i = 0; i < self.items.length; i++) {
-          self.items[i].ordered = 0;
+        $scope.selectedBranch.name = "";
+        $scope.selectedBranch.short = "";
+        $scope.selectedBranch.acc = "";
+        $scope.selectedBranch.address = "";
+        $scope.selectedBranch.city = "";
+        $scope.selectedBranch.selected = false;
+        for (i = 0; i < $scope.items.length; i++) {
+          $scope.items[i].ordered = 0;
         }
-        self.checkoutItems = [];
+        $scope.checkoutItems = [];
         $('html, body').animate({ scrollTop: 0 }, 'fast');
       }
     };
 
     // Loads a previously saved order for user to modify and update
-    self.loadOrder = function(location) {
+    $scope.loadOrder = function(location) {
       var object = $scope.orders[location];
-      for (var i = 0, len = self.items.length; i < len; i++) {
-        if (self.items[i].code in object) {
-          self.items[i].ordered = object[self.items[i].code];
+      for (var i = 0, len = $scope.items.length; i < len; i++) {
+        if ($scope.items[i].code in object) {
+          $scope.items[i].ordered = object[$scope.items[i].code];
         }
       }
-      self.checkoutList();
+      $scope.checkoutList();
       $('html, body').animate({ scrollTop: 0 }, 'fast');
-      alert("Previous order for " + self.selectedBranch.name + " from " + object.time + " has been loaded");
+      alert("Previous order for " + $scope.selectedBranch.name + " from " + object.time + " has been loaded");
     };
 
     // Add the shop to the print list if checkbox is checked
-    self.selectPrint = function(shop) {
+    $scope.selectPrint = function(shop) {
       if (shop.clicked === false) {
         shop.clicked = true;
-        self.printableShop.push(shop);
+        $scope.printableShop.push(shop);
       } else {
-        for (var i = 0; i < self.printableShop.length; i++) {
-          if (self.printableShop[i].name == shop.name) {
+        for (var i = 0; i < $scope.printableShop.length; i++) {
+          if ($scope.printableShop[i].name == shop.name) {
             shop.clicked = false;
-            self.printableShop.splice(i, 1);
+            $scope.printableShop.splice(i, 1);
           }
         }
       }
     };
 
     // Grabs all data required and proceeds with a print preview
-    self.printPreview = function() {
-      if (self.printableShop.length < 1) {
+    $scope.printPreview = function() {
+      if ($scope.printableShop.length < 1) {
         alert("Please select the shops you want to have printed");
       } else {
         var spreadsheetArray = [];
-        for (var j = 0; j < self.printableShop.length; j++) {
+        for (var j = 0; j < $scope.printableShop.length; j++) {
           for (var i = $scope.orders.length; i > 0; i--) {
-            if (self.printableShop[j].short == $scope.orders[i-1].short) {
+            if ($scope.printableShop[j].short == $scope.orders[i-1].short) {
               spreadsheetArray.push($scope.orders[i-1]);
               break;
             }
           }
         }
-        if (spreadsheetArray.length === 0 || spreadsheetArray.length !== self.printableShop.length) {
+        if (spreadsheetArray.length === 0 || spreadsheetArray.length !== $scope.printableShop.length) {
           alert("Sorry one of the shops you are trying to load has no data, please submit an order before loading");
         } else {
           buildTable(spreadsheetArray);
-          buildPackingSlips(spreadsheetArray, self.slipNumber);
+          buildPackingSlips(spreadsheetArray, $scope.slipNumber);
           $("#printButton").show();
         }
       }

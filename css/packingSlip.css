@@ -3,6 +3,11 @@ h2 {
   margin-top: 5px;
 }
 
+.title {
+  z-index: 1;
+  position: fixed;
+}
+
 .right {
   float: right;
 }

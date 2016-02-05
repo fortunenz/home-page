@@ -24,7 +24,7 @@
   <body ng-controller="appCtrl as app" class="container">
     <!-- The user must first login before they can use the application -->
     <div ng-show="!access" class="no-print">
-      <h1 id="title" class="col-12"><a class="headerHome" href="index.html"><img class="no-print logo" src="images/logo.png"> Packing Slip Generator</a></h1>
+      <h1 class="col-12 title"><a class="headerHome" href="index.html"><img class="logo" src="images/logo.png"> Packing Slip Generator</a></h1>
 
       <div class="login-card">
         <h2>Log-in</h2><br>
@@ -40,7 +40,8 @@
     <div ng-show="access">
       <div class="no-print">
         <div class="white"></div>
-        <h1 id="title" class="col-12"><img class="no-print logo" src="images/logo.png"> <span ng-show="!invoice">Packing Slip Generator</span><span ng-show="invoice">Invoice Slip Generator</span></h1>
+        <h1 class="col-12 title"><a class="headerHome" href="index.html"><img class="logo" src="images/logo.png"> <span ng-show="!invoice">Packing Slip Generator</span><span ng-show="invoice">Invoice Slip Generator</span></a></h1>
+
         <div class="greeting">
           <p>
             Welcome back, {{name}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button><span ng-show="!selectedCustomer.name==''"><button class="clean-gray-btn" ng-click="loadData()">Load last order</button></span>

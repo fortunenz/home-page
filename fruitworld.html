@@ -23,7 +23,7 @@
     <script src="js/appFW.js"></script>
   </head>
   <body ng-controller="appCtrl as app" class="container">
-    <h1 id="title" class="no-print col-12"><a class="headerHome" href="index.html"><img class="no-print logo"src="images/logo.png"> Fruit World Checklist</a></h1>
+    <h1 class="no-print col-12 title"><a class="headerHome" href="index.html"><img class="logo"src="images/logo.png"> Fruit World Checklist</a></h1>
 
     <!-- The user must first login before they can use the application -->
     <div ng-show="!access" class="no-print">
@@ -31,8 +31,8 @@
         <h2>Log-in</h2><br>
         <form>
           <input type="text" name="user" placeholder="Email" ng-model="userName">
-          <input type="password" name="pass" placeholder="Password" ng-model="app.password">
-          <input type="submit" name="login" class="login login-submit" value="login" ng-click="app.login()">
+          <input type="password" name="pass" placeholder="Password" ng-model="password">
+          <input type="submit" name="login" class="login login-submit" value="login" ng-click="login()">
         </form>
       </div>
     </div>
@@ -40,34 +40,34 @@
     <!-- If the user has logged in they can use the functions -->
     <div ng-show="access">
       <div class="greeting no-print">
-        <p>Hi, {{userName}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="app.logout()">Logout</button></p>
+        <p>Hi, {{userName}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button></p>
       </div>
       <div class="center no-print col-12">
-        <button class="clean-gray-btn" ng-click="app.changeView()">{{app.viewOrder.id}}</button>
+        <button class="clean-gray-btn" ng-click="changeView()">{{viewOrder.id}}</button>
       </div>
 
-      <div class="no-print" ng-show="app.viewOrder.bool">
-        <h3 class="subHeader">Selected Branch: {{app.selectedBranch.name}}</h3>
+      <div class="no-print" ng-show="viewOrder.bool">
+        <h3 class="subHeader">Selected Branch: {{selectedBranch.name}}</h3>
         <nav>
           <ul>
             <li class="center">
-              <input type="text" ng-model="app.searchBox" ng-keyup="app.search()" placeholder="Item search">
-              <button ng-click="app.showList()" class="clean-gray-btn">Select branch</button>
-              <ul class="shopList" ng-show="app.viewList">
-                <li ng-repeat="shop in shops" ng-click="app.listClick(shop)" class="clean-gray-btn clean-gray-btn-shop">{{shop.name}}</li>
+              <input type="text" ng-model="searchBox" ng-keyup="search()" placeholder="Item search">
+              <button ng-click="showList()" class="clean-gray-btn">Select branch</button>
+              <ul class="shopList" ng-show="viewList">
+                <li ng-repeat="shop in shops" ng-click="listClick(shop)" class="clean-gray-btn clean-gray-btn-shop">{{shop.name}}</li>
               </ul>
             </li>
           </ul>
         </nav>
         <div>
-          <form id="orderForm" class="row" ng-submit="app.saveOrder()">
-            <span ng-repeat="item in app.displayedItems" class="item col-12 row">
+          <form id="orderForm" class="row" ng-submit="saveOrder()">
+            <span ng-repeat="item in displayedItems" class="item col-12 row">
               <strong class="col-12">{{item.description}}:</strong>
-              <input ng-change="app.checkoutList()" ng-model="item.ordered" type="number" step="0.01" value="0" min="0" class="col-7" onclick="this.select()">
+              <input ng-change="checkoutList()" ng-model="item.ordered" type="number" step="0.01" value="0" min="0" class="col-7" onclick="this.select()">
               <span class="col-4 itemIncrement">
                 {{item.orderAs}}
-                <button type="button" class="clean-gray-btn clean-gray-btn-increment" ng-click="item.ordered = item.ordered+1; app.checkoutList()">+</button>
-                <button type="button" class="clean-gray-btn clean-gray-btn-increment" ng-click="item.ordered = item.ordered-1; app.checkoutList()">-</button>
+                <button type="button" class="clean-gray-btn clean-gray-btn-increment" ng-click="item.ordered = item.ordered+1; checkoutList()">+</button>
+                <button type="button" class="clean-gray-btn clean-gray-btn-increment" ng-click="item.ordered = item.ordered-1; checkoutList()">-</button>
               </span>
               <br>
             </span>
@@ -75,7 +75,7 @@
           </form>
           <br>
         </div>
-        <div ng-show="app.selectedBranch.selected" id="loadedOrders">
+        <div ng-show="selectedBranch.selected" id="loadedOrders">
         </div>
 
         <div id="checkout">
@@ -85,25 +85,25 @@
             <hr>
           </div>
           <div id="checkoutItems">
-            <p ng-repeat="item in app.checkoutItems">
+            <p ng-repeat="item in checkoutItems">
               <strong>{{item.description}}:</strong><br>
               {{item.ordered}} {{item.orderAs}}
-              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = 0; app.checkoutList()">X</button>
-              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered-1; app.checkoutList()">-</button>
-              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered+1; app.checkoutList()">+</button>
+              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = 0; checkoutList()">X</button>
+              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered-1; checkoutList()">-</button>
+              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered+1; checkoutList()">+</button>
             </p>
           </div>
         </div>
 
       </div>
 
-      <div ng-show="!app.viewOrder.bool">
+      <div ng-show="!viewOrder.bool">
         <h3 class="no-print subHeader">Choose the shops to print</h3>
         <div class="shopList">
-          <label class="no-print checkboxes clean-gray-btn clean-gray-btn-shop" ng-repeat="shop in shops"><input type="checkbox" ng-click="app.selectPrint(shop)">{{shop.name}}</label>
+          <label class="no-print checkboxes clean-gray-btn clean-gray-btn-shop" ng-repeat="shop in shops"><input type="checkbox" ng-click="selectPrint(shop)">{{shop.name}}</label>
         </div>
         <div class="center">
-          <button class="no-print clean-gray-btn load" ng-click="app.printPreview()">Load</button>
+          <button class="no-print clean-gray-btn load" ng-click="printPreview()">Load</button>
           <button id="printButton" class="clean-gray-btn no-print" onclick=" $('#printButton').hide(); window.print(); $('#printButton').show()">Print</button>
         </div>
         <div id="print">

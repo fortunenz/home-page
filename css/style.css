@@ -67,7 +67,7 @@ header {
   text-align: center;
 }
 
-#title {
+.title {
   text-align: center;
   position: relative;
   top: -15px;
