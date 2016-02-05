@@ -11,18 +11,6 @@ h2, h3 {
   margin-bottom: 0;
 }
 
-#title {
-  text-align: center;
-  position: relative;
-  top: -15px;
-  font-family: 'Lora', serif;
-  font-size: 160%;
-}
-
-.logo {
-  top: 18px;
-}
-
 .greeting {
   text-align: center;
 }

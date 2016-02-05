@@ -23,7 +23,7 @@
     <script src="js/appFW.js"></script>
   </head>
   <body ng-controller="appCtrl as app" class="container">
-    <h1 id="title" class="no-print col-12"><img class="no-print logo"src="images/logo.png"> Fruit World Checklist</h1>
+    <h1 id="title" class="no-print col-12"><a class="headerHome" href="index.html"><img class="no-print logo"src="images/logo.png"> Fruit World Checklist</a></h1>
 
     <!-- The user must first login before they can use the application -->
     <div ng-show="!access" class="no-print">
@@ -94,7 +94,7 @@
             </p>
           </div>
         </div>
-        
+
       </div>
 
       <div ng-show="!app.viewOrder.bool">

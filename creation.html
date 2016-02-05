@@ -18,10 +18,8 @@
   </head>
 
   <body class="container" ng-controller="mainController as main">
-    <header class="row">
-      <h1 class="col-12 title"><img class="logo" src="images/logo.png">Fortune Enterprises Ltd</h1>
-      <p class="col-12">Welcome to the Fortune Enterprises creation page</p>
-    </header>
+    <h1 id="title" class="col-12"><a class="headerHome" href="index.html"><img class="logo" src="images/logo.png">Creation Page</a></h1>
+
     <div class="login-card" ng-show="!access">
       <h2>Log-in</h2><br>
       <form>
