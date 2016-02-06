@@ -15,19 +15,17 @@
       }
     });
 
-    var self = this;
+    $scope.loggedEmail = "";
+    $scope.loggedPass = "";
+    $scope.user;
 
-    self.loggedEmail = "";
-    self.loggedPass = "";
-    self.user;
+    $scope.email = "";
+    $scope.password = "";
 
-    self.email = "";
-    self.password = "";
-
-    self.login = function() {
+    $scope.login = function() {
       ref.authWithPassword({
-        email    : self.loggedEmail,
-        password : self.loggedPass
+        email    : $scope.loggedEmail,
+        password : $scope.loggedPass
       }, function(error, authData) {
         if (error) {
           console.log("Login Failed!", error);
@@ -39,18 +37,18 @@
       });
     };
 
-    self.signUp = function() {
+    $scope.signUp = function() {
       ref.createUser({
-        email    : self.email,
-        password : self.password
+        email    : $scope.email,
+        password : $scope.password
       }, function(error, userData) {
         if (error) {
           console.log("Error creating user:", error);
         } else {
           console.log("Successfully created user account with uid:", userData.uid);
           alert("New user created!");
-          self.email = "";
-          self.password = "";
+          $scope.email = "";
+          $scope.password = "";
           $scope.$apply();
         }
       });
@@ -61,45 +59,43 @@
     var itemsRef = new Firebase('https://popping-torch-7294.firebaseio.com/items');
     $scope.items = $firebaseArray(itemsRef);
 
-    var self = this;
+    $scope.code = "";
+    $scope.description = "";
+    $scope.unit = "";
+    $scope.quantitiy = "";
+    $scope.packaging = "";
+    $scope.defaultPrice = 0;
+    $scope.orderAs = "";
 
-    self.code = "";
-    self.description = "";
-    self.unit = "";
-    self.quantitiy = "";
-    self.packaging = "";
-    self.defaultPrice = 0;
-    self.orderAs = "";
-
-    self.create = function() {
+    $scope.create = function() {
       var codeError = false;
       for (var i = 0, len = $scope.items.length; i < len; i++) {
-        if ($scope.items[i].code == self.code.toUpperCase()) {
+        if ($scope.items[i].code == $scope.code.toUpperCase()) {
           codeError = true;
         }
       }
 
       if (codeError === false) {
         ref.child("items").push({
-          "code": self.code.toUpperCase(),
-          "description": self.description,
-          "unit": self.unit,
-          "quantity": parseInt(self.quantitiy),
-          "packaging": self.packaging,
-          "price": parseInt(self.defaultPrice),
-          "orderAs": self.orderAs.toLowerCase()
+          "code": $scope.code.toUpperCase(),
+          "description": $scope.description,
+          "unit": $scope.unit,
+          "quantity": parseInt($scope.quantitiy),
+          "packaging": $scope.packaging,
+          "price": parseInt($scope.defaultPrice),
+          "orderAs": $scope.orderAs.toLowerCase()
         }, function(error) {
           if (error) {
             console.log("Data could not be saved." + error);
           } else {
             alert("Your new item has been created!")
-            self.code = "";
-            self.description = "";
-            self.unit = "";
-            self.quantitiy = "";
-            self.packaging = "";
-            self.defaultPrice = 0;
-            self.orderAs = "";
+            $scope.code = "";
+            $scope.description = "";
+            $scope.unit = "";
+            $scope.quantitiy = "";
+            $scope.packaging = "";
+            $scope.defaultPrice = 0;
+            $scope.orderAs = "";
             $scope.$apply();
           }
         });
@@ -113,51 +109,49 @@
     var customersRef = new Firebase('https://popping-torch-7294.firebaseio.com/customers');
     $scope.customers = $firebaseArray(customersRef);
 
-    var self = this;
+    $scope.name = "";
+    $scope.short = "";
+    $scope.acc = "";
+    $scope.address = "";
+    $scope.city = "";
+    $scope.type = "";
+    $scope.includeGST = false;
+    $scope.shippingComment = "";
 
-    self.name = "";
-    self.short = "";
-    self.acc = "";
-    self.address = "";
-    self.city = "";
-    self.type = "";
-    self.includeGST = false;
-    self.shippingComment = "";
-
-    self.create = function() {
+    $scope.create = function() {
       var codeError = false;
       for (var i = 0, len = $scope.customers.length; i < len; i++) {
-        if ($scope.customers[i].short == self.short) {
+        if ($scope.customers[i].short == $scope.short) {
           codeError = true;
         }
       }
 
-      if (self.shippingComment.trim().length === 0) {
-        self.shippingComment = null;
+      if ($scope.shippingComment.trim().length === 0) {
+        $scope.shippingComment = null;
       }
 
       if (codeError === false) {
         ref.child("customers").push({
-          "name": self.name,
-          "short": self.short,
-          "acc": self.acc,
-          "address": self.address,
-          "city": self.city,
-          "type": self.type,
-          "shippingComment": self.shippingComment
+          "name": $scope.name,
+          "short": $scope.short,
+          "acc": $scope.acc,
+          "address": $scope.address,
+          "city": $scope.city,
+          "type": $scope.type,
+          "shippingComment": $scope.shippingComment
         }, function(error) {
           if (error) {
             console.log("Data could not be saved." + error);
           } else {
             alert("Your new customer has been created!")
-            self.name = "";
-            self.short = "";
-            self.acc = "";
-            self.address = "";
-            self.city = "";
-            self.type = "";
-            self.includeGST = false;
-            self.shippingComment = "";
+            $scope.name = "";
+            $scope.short = "";
+            $scope.acc = "";
+            $scope.address = "";
+            $scope.city = "";
+            $scope.type = "";
+            $scope.includeGST = false;
+            $scope.shippingComment = "";
             $scope.$apply();
           }
         });
