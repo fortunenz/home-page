@@ -68,6 +68,7 @@
       city: "",
       selected: false
     };
+    $scope.spreadsheetArray = [];
     $scope.searchBox = "";
     $scope.viewList = false;
     $scope.printableShop = [];
@@ -76,7 +77,6 @@
     $scope.items = model.items;
     $scope.displayedItems = $scope.items;
     stopScroll();
-    $scope.slipNumber = 0;
 
     // Function to log the user in so they can use the program
     $scope.login = function() {
@@ -259,11 +259,10 @@
       if ($scope.printableShop.length < 1) {
         alert("Please select the shops you want to have printed");
       } else {
-        var spreadsheetArray = [];
         for (var j = 0; j < $scope.printableShop.length; j++) {
           for (var i = $scope.orders.length; i > 0; i--) {
             if ($scope.printableShop[j].short == $scope.orders[i-1].short) {
-              spreadsheetArray.push($scope.orders[i-1]);
+              $scope.spreadsheetArray.push($scope.orders[i-1]);
               break;
             }
           }
@@ -271,26 +270,33 @@
         if (spreadsheetArray.length === 0 || spreadsheetArray.length !== $scope.printableShop.length) {
           alert("Sorry one of the shops you are trying to load has no data, please submit an order before loading");
         } else {
-          buildTable(spreadsheetArray);
-          buildPackingSlips(spreadsheetArray, $scope.slipNumber);
+          buildTable($scope.spreadsheetArray);
+          buildPackingSlips($scope.spreadsheetArray, $scope.slipNumber);
           $("#printButton").show();
         }
       }
     };
-  });
 
-  // Watches if the search box and changes the displayed items accordingly
-  // if the user searches for items
-  $scope.$watch("searchBox", function() {
-    if ($scope.searchBox.trim().length === 0) {
-      $scope.displayedItems = $scope.items;
-    } else {
-      $scope.displayedItems = [];
-      for (var i = 0, len = $scope.items.length; i < len; i++) {
-        if ($scope.items[i].description.toLowerCase().includes($scope.searchBox.toLowerCase()) || $scope.items[i].code.toLowerCase().includes($scope.searchBox.toLowerCase())) {
-          $scope.displayedItems.push($scope.items[i]);
+    // Watches if the search box and changes the displayed items accordingly
+    // if the user searches for items
+    $scope.$watch("searchBox", function() {
+      if ($scope.searchBox.trim().length === 0) {
+        $scope.displayedItems = $scope.items;
+      } else {
+        $scope.displayedItems = [];
+        for (var i = 0, len = $scope.items.length; i < len; i++) {
+          if ($scope.items[i].description.toLowerCase().includes($scope.searchBox.toLowerCase()) || $scope.items[i].code.toLowerCase().includes($scope.searchBox.toLowerCase())) {
+            $scope.displayedItems.push($scope.items[i]);
+          }
         }
       }
+    });
+  });
+
+  app.directive("feTable", function() {
+    return {
+      restrict: "E",
+      templateUrl: "templates/checklistTable.html"
     }
   });
 })();

@@ -99,10 +99,6 @@ table, th, td {
     display: inline;
   }
 
-  #print {
-    font-size: 10px;
-  }
-
   .packingSlips {
     page-break-before: always;
   }
