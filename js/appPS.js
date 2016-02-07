@@ -117,19 +117,16 @@
 
     // Function to log the user in so they can use the program
     $scope.login = function() {
-      $("#loading").show();
       ref.authWithPassword({
         email    : $scope.userName,
         password : $scope.password
       }, function(error, authData) {
         if (error) {
           console.log("Login Failed!", error);
-          $("#loading").hide();
           alert("Sorry the username or password may be wrong, please try again");
         } else {
           console.log("Authenticated successfully with payload:", authData);
           $scope.access = true;
-          $("#loading").hide();
           $scope.$apply();
         }
       }, {
