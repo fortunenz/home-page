@@ -72,7 +72,6 @@
     $scope.searchBox = "";
     $scope.viewList = false;
     $scope.printableShop = [];
-    $scope.spreadsheetArray = [];
     $scope.checkoutItems = [];
     $scope.items = model.items;
     $scope.displayedItems = $scope.items;
@@ -173,7 +172,7 @@
         if ($scope.orders[i-1].short == $scope.selectedBranch.short) {
           temp = '<div class="oldOrders"><p>File last modified: ' +
           $scope.orders[i-1].time +
-          ' <button class="clean-gray-btn" ng-click="app.loadOrder(' +
+          ' <button class="clean-gray-btn" ng-click="loadOrder(' +
           (i-1) +
           ')">Load</button></p></div>';
           angular.element(document.getElementById("loadedOrders")).append($compile(temp)($scope));
@@ -228,6 +227,7 @@
 
     // Loads a previously saved order for user to modify and update
     $scope.loadOrder = function(location) {
+      console.log(location);
       var object = $scope.orders[location];
       for (var i = 0, len = $scope.items.length; i < len; i++) {
         if ($scope.items[i].code in object) {
@@ -259,6 +259,7 @@
       if ($scope.printableShop.length < 1) {
         alert("Please select the shops you want to have printed");
       } else {
+        $scope.spreadsheetArray = [];
         for (var j = 0; j < $scope.printableShop.length; j++) {
           for (var i = $scope.orders.length; i > 0; i--) {
             if ($scope.printableShop[j].short == $scope.orders[i-1].short) {
@@ -267,7 +268,7 @@
             }
           }
         }
-        if (spreadsheetArray.length === 0 || spreadsheetArray.length !== $scope.printableShop.length) {
+        if ($scope.spreadsheetArray.length === 0 || $scope.spreadsheetArray.length !== $scope.printableShop.length) {
           alert("Sorry one of the shops you are trying to load has no data, please submit an order before loading");
         } else {
           buildTable($scope.spreadsheetArray);
