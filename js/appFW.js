@@ -181,7 +181,9 @@
         tempJson.time = new Date().toDateString();
 
         for (var i = 0; i < $scope.items.length; i++) {
-          tempJson[$scope.items[i].code] = $scope.items[i].ordered;
+          if ($scope.items[i].ordered > 0) {
+            tempJson[$scope.items[i].code] = $scope.items[i].ordered;
+          }
         }
 
         var shopRef = new Firebase('https://popping-torch-7294.firebaseio.com/fruitWorldOrders');
@@ -245,10 +247,21 @@
             }
           }
         }
+
+        var tempTotal;
+        for (var i = 0; i < $scope.items.length; i++) {
+          tempTotal = 0;
+          for (var j = 0, len = $scope.spreadsheetArray.length; j < len; j++) {
+            if ($scope.spreadsheetArray[j][$scope.items[i].code] > 0) {
+              tempTotal += $scope.spreadsheetArray[j][$scope.items[i].code];
+            }
+          }
+          $scope.items[i].spreadsheetTotal = tempTotal;
+        }
+
         if ($scope.spreadsheetArray.length === 0 || $scope.spreadsheetArray.length !== $scope.printableShop.length) {
           alert("Sorry one of the shops you are trying to load has no data, please submit an order before loading");
         } else {
-          buildTable($scope.spreadsheetArray);
           buildPackingSlips($scope.spreadsheetArray, $scope.slipNumber);
           $("#printButton").show();
         }
@@ -277,6 +290,13 @@
       templateUrl: "fe-orders"
     }
   });
+
+  app.directive("feTable", function() {
+    return {
+      restrict: "E",
+      templateUrl: "fe-table"
+    }
+  })
 
   app.filter("reverse", function() {
     return function(items) {

@@ -28,10 +28,28 @@
       <span ng-repeat="order in orders | reverse">
         <div class="oldOrders" ng-show="order.short == selectedBranch.short">
           <p>
-            File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder($index)">Load</button>
+            File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder(orders.length-$index-1)">Load</button>
           </p>
         </div>
       </span>
+    </script>
+
+    <!-- Tempalte for main delivery checklist -->
+    <script type="text/ng-template" id="fe-table">
+      <br>
+      <table ng-show="spreadsheetArray.length > 0">
+        <tr>
+          <th></th>
+          <th ng-repeat="shop in spreadsheetArray">{{shop.short}}</th>
+          <th>Total</th>
+        </tr>
+        <tr ng-repeat="item in items" ng-show="item.spreadsheetTotal > 0">
+          <th>{{item.description}}</th>
+          <td ng-repeat="shop in spreadsheetArray">{{shop[item.code]}}</td>
+          <td>{{item.spreadsheetTotal}}</td>
+          <td>{{item.orderAs}}</td>
+        </tr>
+      </table>
     </script>
   </head>
   <body ng-controller="appCtrl" class="container">
@@ -117,8 +135,8 @@
           <button class="no-print clean-gray-btn load" ng-click="printPreview()">Load</button>
           <button id="printButton" class="clean-gray-btn no-print" onclick=" $('#printButton').hide(); window.print(); $('#printButton').show()">Print</button>
         </div>
-        <div id="print">
-        </div>
+        <fe-table id="print">
+        </fe-table>
         <div id="packingSlip">
         </div>
       </div>

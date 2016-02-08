@@ -1,23 +1,3 @@
-// Function to build the table to be printed
-var buildTable = function(spreadsheetArray) {
-  $("#print").empty();
-
-  var table = '<br><table>';
-  table += "<tr>";
-  table += "<th></th>";
-  for (var i = 0, len = spreadsheetArray.length; i < len; i++) {
-    table += "<th>" + spreadsheetArray[i].short + "</th>";
-  }
-  table += "<th>Total</th>";
-  table += "</tr>";
-
-  table += buildRow(spreadsheetArray);
-
-  table += "</table>";
-
-  $("#print").append(table);
-};
-
 // Loops through each shop in spreadsheet and builds a packing slip
 // to be printed
 var buildPackingSlips = function(spreadsheetArray, slipNumber) {
@@ -90,35 +70,6 @@ var buildPackingSlips = function(spreadsheetArray, slipNumber) {
   }
   var slipNumberRef = new Firebase('https://popping-torch-7294.firebaseio.com/slipNumber');
   slipNumberRef.set(slipNumber);
-};
-
-// Builds all the rows
-var buildRow = function(spreadsheetArray) {
-  var table = "";
-  var tempTotal;
-  var items = model.items;
-
-  for (var k = 0; k < items.length; k++) {
-    tempTotal = 0;
-    for (var i = 0, len = spreadsheetArray.length; i < len; i++) {
-      tempTotal += spreadsheetArray[i][items[k].code];
-    }
-
-    if (tempTotal > 0) {
-      table += "<tr><th>" + items[k].description + "</th>";
-      for (i = 0, len = spreadsheetArray.length; i < len; i++) {
-        table += "<td>";
-        if (spreadsheetArray[i][items[k].code] > 0) {
-          table += spreadsheetArray[i][items[k].code];
-        }
-        table += "</td>";
-      }
-      table += "<td>" + tempTotal + "</td><td>" + items[k].orderAs + "</td>";
-      table += "</tr>";
-    }
-  }
-
-  return table;
 };
 
 var buildPackingRow = function(spreadsheetArray) {
