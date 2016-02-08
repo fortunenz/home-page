@@ -51,7 +51,46 @@
         </tr>
       </table>
     </script>
+
+    <!-- Tempalte for the packing slips -->
+    <script type="text/ng-template" id="fe-slip">
+      <div ng-repeat="shop in spreadsheetArray" class="packingSlips packingFullPage">
+        <div class="row">
+          <h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>
+          <strong class="col-2 packingName">Packing Slip</strong>
+        </div>
+
+        <div class="row packingRow">
+          <div class="col-8">
+            <p class="packingP">73 Huia Road, Otahuhu, Auckland</p>
+            <p class="packingP">PO Box 9511 New Market, Auckland</p>
+            <p class="packingP">Email: <a href="#">feltd@xtra.co.nz</a></p>
+          </div>
+          <div class="col-4">
+            <p class="packingP right">Phone:    (09) 276-8681</p>
+            <p class="packingP right">Fax:      (09) 276-8682</p>
+            <p class="packingP right">Website:  <a href="#">www.fortunenz.com</a></p>
+          </div>
+        </div>
+
+        <div class="row packingRow">
+          <div class="col-8">
+            <p class="packingP">Deliver to:</p>
+            <p class="packingP"><strong>{{shop.name}}</strong></p>
+            <p class="packingP">{{shop.address}}</p>
+            <p class="packingP">{{shop.city}}</p>
+          </div>
+          <div class="col-4">
+            <p class="packingP">Packing slip no.: {{slipNumber.$value+$index+1}}</p>
+            <p class="packingP">Account no.: {{shop.acc}}</p>
+            <p class="packingP">Date: {{date}}</p>
+          </div>
+        </div>
+      </div>
+    </script>
+
   </head>
+
   <body ng-controller="appCtrl" class="container">
     <h1 class="no-print col-12 title"><a class="headerHome" href="index.html"><img class="logo"src="images/logo.png"> Fruit World Checklist</a></h1>
 
@@ -133,12 +172,12 @@
         </div>
         <div class="center">
           <button class="no-print clean-gray-btn load" ng-click="printPreview()">Load</button>
-          <button id="printButton" class="clean-gray-btn no-print" onclick=" $('#printButton').hide(); window.print(); $('#printButton').show()">Print</button>
+          <button ng-show="spreadsheetArray.length > 0" ng-click="slipNumber.$value = slipNumber.$value + spreadsheetArray.length; slipNumber.$save()" id="printButton" class="clean-gray-btn no-print" onclick="window.print();">Print</button>
         </div>
         <fe-table id="print">
         </fe-table>
-        <div id="packingSlip">
-        </div>
+        <fe-slip id="packingSlip">
+        </fe-slip>
       </div>
     </div>
   </body>

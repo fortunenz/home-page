@@ -1,7 +1,8 @@
 (function() {
   var app = angular.module("checklist", ["firebase"]);
 
-  app.controller("appCtrl", ["$scope", "$compile", "$firebaseArray", function($scope, $compile, $firebaseArray) {
+  app.controller("appCtrl", ["$scope", "$compile", "$firebaseArray", "$firebaseObject",
+  function($scope, $compile, $firebaseArray, $firebaseObject) {
     // Connects to the firebase server
     var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
 
@@ -29,10 +30,10 @@
           sortByKey($scope.shops, "name");
         });
 
+        //ref.child('slipNumber').set(3125);
         // updates the order number
-        ref.child("slipNumber").on("value", function(snapshot) {
-          $scope.slipNumber = snapshot.val();
-        });
+        $scope.slipNumber = $firebaseObject(ref.child('slipNumber'));
+
         // Pulls all the past orders from server
         $scope.orders = $firebaseArray(ref.child('fruitWorldOrders'));
       } else {
@@ -77,6 +78,10 @@
     $scope.displayedItems = $scope.items;
     stopScroll();
 
+    var systemDate = new Date();
+    var tokens = systemDate.toString().split(" ");
+    $scope.date = tokens[2] + " " + tokens[1] + " " + tokens[3];
+
     // Function to log the user in so they can use the program
     $scope.login = function() {
       ref.authWithPassword({
@@ -91,7 +96,6 @@
           $scope.access = true;
 
           $scope.printableShop = [];
-          $("#printButton").hide();
           $scope.$apply();
         }
       }, {
@@ -261,9 +265,6 @@
 
         if ($scope.spreadsheetArray.length === 0 || $scope.spreadsheetArray.length !== $scope.printableShop.length) {
           alert("Sorry one of the shops you are trying to load has no data, please submit an order before loading");
-        } else {
-          buildPackingSlips($scope.spreadsheetArray, $scope.slipNumber);
-          $("#printButton").show();
         }
       }
     };
@@ -296,7 +297,14 @@
       restrict: "E",
       templateUrl: "fe-table"
     }
-  })
+  });
+
+  app.directive("feSlip", function() {
+    return {
+      restrict: "E",
+      templateUrl: "fe-slip"
+    }
+  });
 
   app.filter("reverse", function() {
     return function(items) {
