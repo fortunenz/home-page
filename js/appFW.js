@@ -1,7 +1,7 @@
 (function() {
   var app = angular.module("checklist", ["firebase"]);
 
-  app.controller("appCtrl", function($scope, $compile, $firebaseArray) {
+  app.controller("appCtrl", ["$scope", "$compile", "$firebaseArray", function($scope, $compile, $firebaseArray) {
     // Connects to the firebase server
     var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
 
@@ -160,30 +160,8 @@
       $scope.selectedBranch.acc = data.acc;
       $scope.selectedBranch.address = data.address;
       $scope.selectedBranch.city = data.city;
-
-      $("#loadedOrders").empty();
-
-      var tempNum = 0;
-      var temp;
-      temp = '<h3 ng-show="app.selectedBranch.selected">Saved orders for ' + data.name + '</h3>';
-      $("#loadedOrders").append(temp);
-
-      for (var i = $scope.orders.length; i > 0; i--) {
-        if ($scope.orders[i-1].short == $scope.selectedBranch.short) {
-          temp = '<div class="oldOrders"><p>File last modified: ' +
-          $scope.orders[i-1].time +
-          ' <button class="clean-gray-btn" ng-click="loadOrder(' +
-          (i-1) +
-          ')">Load</button></p></div>';
-          angular.element(document.getElementById("loadedOrders")).append($compile(temp)($scope));
-          tempNum++;
-          if (tempNum > 4) {
-            break;
-          }
-        }
-      }
-
       $scope.selectedBranch.selected = true;
+
       $('html, body').animate({ scrollTop: 0 }, 'fast');
     };
 
@@ -227,7 +205,6 @@
 
     // Loads a previously saved order for user to modify and update
     $scope.loadOrder = function(location) {
-      console.log(location);
       var object = $scope.orders[location];
       for (var i = 0, len = $scope.items.length; i < len; i++) {
         if ($scope.items[i].code in object) {
@@ -292,12 +269,18 @@
         }
       }
     });
-  });
+  }]);
 
-  app.directive("feTable", function() {
+  app.directive("feOrders", function() {
     return {
       restrict: "E",
-      templateUrl: "templates/checklistTable.html"
+      templateUrl: "fe-orders"
     }
+  });
+
+  app.filter("reverse", function() {
+    return function(items) {
+      return items.slice().reverse();
+    };
   });
 })();

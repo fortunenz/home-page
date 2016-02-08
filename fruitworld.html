@@ -21,6 +21,18 @@
     <script src="js/buildTableFW.js" async></script>
     <script src="js/model.js"></script>
     <script src="js/appFW.js"></script>
+
+    <!-- Tempalte for the loaded orders -->
+    <script type="text/ng-template" id="fe-orders">
+      <h3>Saved orders for {{selectedBranch.name}}</h3>
+      <span ng-repeat="order in orders | reverse">
+        <div class="oldOrders" ng-show="order.short == selectedBranch.short">
+          <p>
+            File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder($index)">Load</button>
+          </p>
+        </div>
+      </span>
+    </script>
   </head>
   <body ng-controller="appCtrl" class="container">
     <h1 class="no-print col-12 title"><a class="headerHome" href="index.html"><img class="logo"src="images/logo.png"> Fruit World Checklist</a></h1>
@@ -75,8 +87,7 @@
           </form>
           <br>
         </div>
-        <div ng-show="selectedBranch.selected" id="loadedOrders">
-        </div>
+        <fe-orders ng-show="selectedBranch.selected" id="loadedOrders"></fe-orders>
 
         <div id="checkout">
           <div id="checkoutHeader">
