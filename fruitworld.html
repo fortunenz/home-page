@@ -86,6 +86,28 @@
             <p class="packingP">Date: {{date}}</p>
           </div>
         </div>
+
+        <table class="packingTable">
+          <tr>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Packaging</th>
+            <th>Quantity</th>
+            <th>Carton</th>
+          </tr>
+          <tr ng-repeat="item in items" ng-if="shop.hasOwnProperty(item.code) && shop[item.code] > 0">
+            <td>{{item.code}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.packaging}}</td>
+            <td>{{shop[item.code] | quantity:item}}</td>
+            <td>{{shop[item.code] | carton:item}}</td>
+          </tr>
+        </table>
+
+        <div class="packingSign">
+          <p>Name: _________________________________</p><br>
+          <p>Signature: ______________________________</p>
+        </div>
       </div>
     </script>
 
