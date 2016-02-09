@@ -15,7 +15,7 @@ var buildPackingSlips = function(scope, filter) {
   var tokens = scope.date.toString().split(" ");
   var date = tokens[2] + " " + tokens[1] + " " + tokens[3];
 
-  scope.slipNumber++;
+  scope.slipNumber.$value++;
 
   var packingSlip;
   packingSlip = "";
@@ -59,7 +59,7 @@ var buildPackingSlips = function(scope, filter) {
   } else {
     packingSlip += '<p class="packingP">Packing slip no.: ';
   }
-  packingSlip += scope.slipNumber;
+  packingSlip += scope.slipNumber.$value;
   packingSlip += '</p>';
   packingSlip += '<p class="packingP">Account no.: ';
   packingSlip += scope.selectedCustomer.acc;
@@ -207,9 +207,7 @@ var buildPackingSlips = function(scope, filter) {
     ordersRef.push(tempJson);
   }
 
-  //
-  var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
-  ref.child("slipNumber").set(scope.slipNumber);
+  scope.slipNumber.$save();
 
   // If customer is being invoiced prices will be checked and if needed
   // will be saved for next time

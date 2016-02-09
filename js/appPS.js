@@ -1,8 +1,8 @@
 (function() {
   var app = angular.module("app", ["firebase"]);
 
-  app.controller("appCtrl", ["$scope", "$compile", "$filter", "$firebaseArray",
-        function($scope, $compile, $filter, $firebaseArray) {
+  app.controller("appCtrl", ["$scope", "$compile", "$filter", "$firebaseArray", "$firebaseObject",
+        function($scope, $compile, $filter, $firebaseArray, $firebaseObject) {
     // Connects to the firebase server
     var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
 
@@ -73,9 +73,7 @@
           stopScroll();
         });
 
-        ref.child("slipNumber").on("value", function(snapshot) {
-          $scope.slipNumber = snapshot.val();
-        });
+        $scope.slipNumber = $firebaseObject(ref.child('slipNumber'));
 
         $scope.slipOrders = $firebaseArray(ref.child('slipOrders'));
       } else {
