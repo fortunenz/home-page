@@ -53,7 +53,7 @@
 
     <!-- Tempalte for the packing slips -->
     <script type="text/ng-template" id="fe-slip">
-      <div ng-repeat="shop in spreadsheetArray" class="packingSlips packingFullPage">
+      <div ng-repeat="n in [0,1]" class="packingSlips packingFullPage">
         <div class="row">
           <h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>
           <strong class="col-2 packingName">Packing Slip</strong>
@@ -80,7 +80,7 @@
             <p class="packingP">{{shop.city}}</p>
           </div>
           <div class="col-4">
-            <p class="packingP">Packing slip no.: {{slipNumber.$value+$index+1}}</p>
+            <p class="packingP">Packing slip no.: {{slipNumber.$value+$parent.$index+1}}</p>
             <p class="packingP">Account no.: {{shop.acc}}</p>
             <p class="packingP">Date: {{date}}</p>
           </div>
@@ -197,7 +197,7 @@
         </div>
         <fe-table id="print">
         </fe-table>
-        <fe-slip id="packingSlip">
+        <fe-slip id="packingSlip" ng-repeat="shop in spreadsheetArray">
         </fe-slip>
       </div>
     </div>
