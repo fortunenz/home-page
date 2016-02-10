@@ -16,6 +16,7 @@ var buildPackingSlips = function(scope, filter) {
   var date = tokens[2] + " " + tokens[1] + " " + tokens[3];
 
   scope.slipNumber.$value++;
+  scope.slipNumber.$save();
 
   var packingSlip;
   packingSlip = "";
@@ -206,8 +207,6 @@ var buildPackingSlips = function(scope, filter) {
     var ordersRef = new Firebase('https://popping-torch-7294.firebaseio.com/slipOrders');
     ordersRef.push(tempJson);
   }
-
-  scope.slipNumber.$save();
 
   // If customer is being invoiced prices will be checked and if needed
   // will be saved for next time

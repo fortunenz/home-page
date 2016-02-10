@@ -80,7 +80,7 @@
             <p class="packingP">{{shop.city}}</p>
           </div>
           <div class="col-4">
-            <p class="packingP">Packing slip no.: {{slipNumber.$value+$parent.$index+1}}</p>
+            <p class="packingP">Packing slip no.: {{shop.slipNumber}}</p>
             <p class="packingP">Account no.: {{shop.acc}}</p>
             <p class="packingP">Date: {{date}}</p>
           </div>
@@ -193,7 +193,7 @@
         </div>
         <div class="center">
           <button class="no-print clean-gray-btn load" ng-click="printPreview()">Load</button>
-          <button ng-show="spreadsheetArray.length > 0" ng-click="slipNumber.$value = slipNumber.$value + spreadsheetArray.length; slipNumber.$save()" id="printButton" class="clean-gray-btn no-print" onclick="window.print();">Print</button>
+          <button ng-show="spreadsheetArray.length > 0" id="printButton" class="clean-gray-btn no-print" onclick="window.print();">Print</button>
         </div>
         <fe-table id="print">
         </fe-table>

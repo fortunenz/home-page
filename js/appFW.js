@@ -252,6 +252,12 @@
           }
         }
 
+        for (var j = 0, len = $scope.spreadsheetArray.length; j < len; j++) {
+          $scope.slipNumber.$value++;
+          $scope.slipNumber.$save();
+          $scope.spreadsheetArray[j].slipNumber = $scope.slipNumber.$value;
+        }
+
         var tempTotal;
         for (var i = 0; i < $scope.items.length; i++) {
           tempTotal = 0;
