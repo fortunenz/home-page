@@ -291,27 +291,6 @@
     });
   }]);
 
-  app.directive("feOrders", function() {
-    return {
-      restrict: "E",
-      templateUrl: "fe-orders"
-    };
-  });
-
-  app.directive("feTable", function() {
-    return {
-      restrict: "E",
-      templateUrl: "fe-table"
-    }
-  });
-
-  app.directive("feSlip", function() {
-    return {
-      restrict: "E",
-      templateUrl: "fe-slip"
-    };
-  });
-
   app.filter("reverse", function() {
     return function(items) {
       return items.slice().reverse();

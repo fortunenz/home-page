@@ -21,95 +21,6 @@
     <script src="js/model.js"></script>
     <script src="js/appFW.js"></script>
 
-    <!-- Tempalte for the loaded orders -->
-    <script type="text/ng-template" id="fe-orders">
-      <h3>Saved orders for {{selectedBranch.name}}</h3>
-      <span ng-repeat="order in orders | reverse">
-        <div class="oldOrders" ng-show="order.short == selectedBranch.short">
-          <p>
-            File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder(orders.length-$index-1)">Load</button>
-          </p>
-        </div>
-      </span>
-    </script>
-
-    <!-- Tempalte for main delivery checklist -->
-    <script type="text/ng-template" id="fe-table">
-      <br>
-      <table ng-show="spreadsheetArray.length > 0">
-        <tr>
-          <th></th>
-          <th ng-repeat="shop in spreadsheetArray">{{shop.short}}</th>
-          <th>Total</th>
-        </tr>
-        <tr ng-repeat="item in items" ng-if="item.spreadsheetTotal > 0">
-          <th>{{item.description}}</th>
-          <td ng-repeat="shop in spreadsheetArray">{{shop[item.code]}}</td>
-          <td>{{item.spreadsheetTotal}}</td>
-          <td>{{item.orderAs}}</td>
-        </tr>
-      </table>
-    </script>
-
-    <!-- Tempalte for the packing slips -->
-    <script type="text/ng-template" id="fe-slip">
-      <div ng-repeat="n in [0,1]" class="packingSlips packingFullPage">
-        <div class="row">
-          <h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>
-          <strong class="col-2 packingName">Packing Slip</strong>
-        </div>
-
-        <div class="row packingRow">
-          <div class="col-8">
-            <p class="packingP">73 Huia Road, Otahuhu, Auckland</p>
-            <p class="packingP">PO Box 9511 New Market, Auckland</p>
-            <p class="packingP">Email: <a href="#">feltd@xtra.co.nz</a></p>
-          </div>
-          <div class="col-4">
-            <p class="packingP right">Phone:    (09) 276-8681</p>
-            <p class="packingP right">Fax:      (09) 276-8682</p>
-            <p class="packingP right">Website:  <a href="#">www.fortunenz.com</a></p>
-          </div>
-        </div>
-
-        <div class="row packingRow">
-          <div class="col-8">
-            <p class="packingP">Deliver to:</p>
-            <p class="packingP"><strong>{{shop.name}}</strong></p>
-            <p class="packingP">{{shop.address}}</p>
-            <p class="packingP">{{shop.city}}</p>
-          </div>
-          <div class="col-4">
-            <p class="packingP">Packing slip no.: {{shop.slipNumber}}</p>
-            <p class="packingP">Account no.: {{shop.acc}}</p>
-            <p class="packingP">Date: {{date}}</p>
-          </div>
-        </div>
-
-        <table class="packingTable">
-          <tr>
-            <th>Code</th>
-            <th>Description</th>
-            <th>Packaging</th>
-            <th>Quantity</th>
-            <th>Carton</th>
-          </tr>
-          <tr ng-repeat="item in items" ng-if="shop.hasOwnProperty(item.code) && shop[item.code] > 0">
-            <td>{{item.code}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.packaging}}</td>
-            <td>{{shop[item.code] | quantity:item}}</td>
-            <td>{{shop[item.code] | carton:item}}</td>
-          </tr>
-        </table>
-
-        <div class="packingSign">
-          <p>Name: _________________________________</p><br>
-          <p>Signature: ______________________________</p>
-        </div>
-      </div>
-    </script>
-
   </head>
 
   <body ng-controller="appCtrl" class="container">
@@ -165,7 +76,16 @@
           </form>
           <br>
         </div>
-        <fe-orders ng-show="selectedBranch.selected" id="loadedOrders"></fe-orders>
+        <div ng-show="selectedBranch.selected" id="loadedOrders">
+          <h3>Saved orders for {{selectedBranch.name}}</h3>
+          <span ng-repeat="order in orders | reverse">
+            <div class="oldOrders" ng-show="order.short == selectedBranch.short">
+              <p>
+                File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder(orders.length-$index-1)">Load</button>
+              </p>
+            </div>
+          </span>
+        </div>
 
         <div id="checkout">
           <div id="checkoutHeader">
@@ -195,10 +115,81 @@
           <button class="no-print clean-gray-btn load" ng-click="printPreview()">Load</button>
           <button ng-show="spreadsheetArray.length > 0" id="printButton" class="clean-gray-btn no-print" onclick="window.print();">Print</button>
         </div>
-        <fe-table id="print">
-        </fe-table>
-        <fe-slip id="packingSlip" ng-repeat="shop in spreadsheetArray">
-        </fe-slip>
+
+        <div id="print">
+          <br>
+          <table ng-show="spreadsheetArray.length > 0">
+            <tr>
+              <th></th>
+              <th ng-repeat="shop in spreadsheetArray">{{shop.short}}</th>
+              <th>Total</th>
+            </tr>
+            <tr ng-repeat="item in items" ng-if="item.spreadsheetTotal > 0">
+              <th>{{item.description}}</th>
+              <td ng-repeat="shop in spreadsheetArray">{{shop[item.code]}}</td>
+              <td>{{item.spreadsheetTotal}}</td>
+              <td>{{item.orderAs}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="packingSlip" ng-repeat="shop in spreadsheetArray">
+          <div ng-repeat="n in [0,1]" class="packingSlips packingFullPage">
+            <div class="row">
+              <h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>
+              <strong class="col-2 packingName">Packing Slip</strong>
+            </div>
+
+            <div class="row packingRow">
+              <div class="col-8">
+                <p class="packingP">73 Huia Road, Otahuhu, Auckland</p>
+                <p class="packingP">PO Box 9511 New Market, Auckland</p>
+                <p class="packingP">Email: <a href="#">feltd@xtra.co.nz</a></p>
+              </div>
+              <div class="col-4">
+                <p class="packingP right">Phone:    (09) 276-8681</p>
+                <p class="packingP right">Fax:      (09) 276-8682</p>
+                <p class="packingP right">Website:  <a href="#">www.fortunenz.com</a></p>
+              </div>
+            </div>
+
+            <div class="row packingRow">
+              <div class="col-8">
+                <p class="packingP">Deliver to:</p>
+                <p class="packingP"><strong>{{shop.name}}</strong></p>
+                <p class="packingP">{{shop.address}}</p>
+                <p class="packingP">{{shop.city}}</p>
+              </div>
+              <div class="col-4">
+                <p class="packingP">Packing slip no.: {{shop.slipNumber}}</p>
+                <p class="packingP">Account no.: {{shop.acc}}</p>
+                <p class="packingP">Date: {{date}}</p>
+              </div>
+            </div>
+
+            <table class="packingTable">
+              <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Packaging</th>
+                <th>Quantity</th>
+                <th>Carton</th>
+              </tr>
+              <tr ng-repeat="item in items" ng-if="shop.hasOwnProperty(item.code) && shop[item.code] > 0">
+                <td>{{item.code}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.packaging}}</td>
+                <td>{{shop[item.code] | quantity:item}}</td>
+                <td>{{shop[item.code] | carton:item}}</td>
+              </tr>
+            </table>
+
+            <div class="packingSign">
+              <p>Name: _________________________________</p><br>
+              <p>Signature: ______________________________</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
