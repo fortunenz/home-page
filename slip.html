@@ -221,6 +221,40 @@
             </tr>
           </table>
 
+          <div class="packingTotalTable right" ng-if="invoice === true">
+            <table ng-if="selectedCustomer.includeGST !== true">
+              <tr>
+                <th class="packingT">Sub Total</th>
+                <td class="packingT">{{subTotal | currency}}</td>
+              </tr>
+              <tr>
+                <th class="packingT">GST</th>
+                <td class="packingT">{{gst | currency}}</td>
+              </tr>
+              <tr>
+                <th class="packingT">Total</th>
+                <td class="packingT">{{grandTotal | currency}}</td>
+              </tr>
+            </table>
+            <table ng-if="selectedCustomer.includeGST === true">
+              <tr>
+                <th class="packingT">Total including GST</th>
+                <td class="packingT">{{subTotal | currency}}</td>
+              </tr>
+            </table>
+          </div>
+
+          <br><br>
+          <div class="packingSign" ng-if="selectedCustomer.city == 'Auckland'">
+            <p>Name: _________________________________</p><br>
+            <p>Signature: ______________________________</p>
+            <p class="packingPaymentInfo" ng-if="invoice === true && selectedCustomer.acc !== ' '">Please pay direct to bank account: Westpac 03-0166-0248508-00</p>
+          </div>
+
+          <div class="packingNotes" ng-if="notes.trim().length !== 0">
+            <p class="packingNotesInner">{{notes}}</p>
+          </div>
+
           <!-- Inserts a page break is this is the first of two pages -->
           <div class="break" ng-if="$index === 0"></div>
         </div>
