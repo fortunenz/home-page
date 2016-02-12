@@ -8,6 +8,11 @@ h2 {
   position: fixed;
 }
 
+.login-card {
+  position: relative;
+  top: 90px;
+}
+
 .right {
   float: right;
 }
