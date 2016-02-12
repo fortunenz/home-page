@@ -216,11 +216,12 @@
           $scope.selectedCustomer.shippingComment = "";
         }
 
-        window.print();
         $scope.slipNumber.$value++;
         $scope.slipNumber.$save();
+
+        window.print();
+
         $scope.resetApp();
-        //buildPackingSlips($scope, $filter);
       }
     };
 
