@@ -104,6 +104,7 @@
     $scope.backOrder = false;
     $scope.orderNo = "";
     $scope.date = new Date();
+    $scope.slipDate = "";
     $scope.checkoutItems = [];
 
     // Invoice view variables
@@ -206,7 +207,20 @@
       } else if (total === 0) {
         alert("Your customers order cannot have no items");
       } else {
-        buildPackingSlips($scope, $filter);
+        // If the user is using a new customer while in invoice view then set
+        // irrelevent variables to null
+        if ($scope.invoiceNewCustomer === true && $scope.invoice === true) {
+          $scope.selectedCustomer.short = "";
+          $scope.selectedCustomer.acc = "";
+          $scope.selectedCustomer.city = "";
+          $scope.selectedCustomer.shippingComment = "";
+        }
+
+        window.print();
+        $scope.slipNumber.$value++;
+        $scope.slipNumber.$save();
+        $scope.resetApp();
+        //buildPackingSlips($scope, $filter);
       }
     };
 
@@ -276,6 +290,12 @@
           }
         }
       }
+    });
+
+    // Watched if the user changes the packing slip date it will give appropriate value
+    $scope.$watch("date", function() {
+      var tokens = $scope.date.toString().split(" ");
+      $scope.slipDate = tokens[2] + " " + tokens[1] + " " + tokens[3];
     });
 
     // Functions specific to invoice view

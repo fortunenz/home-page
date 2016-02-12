@@ -2,25 +2,18 @@
 var buildPackingSlips = function(scope, filter) {
   $("#packingSlip").empty();
 
-  // If the user is using a new customer while in invoice view then set
-  // irrelevent variables to null
-  if (scope.invoiceNewCustomer === true && scope.invoice === true) {
-    scope.selectedCustomer.short = "";
-    scope.selectedCustomer.acc = "";
-    scope.selectedCustomer.city = "";
-    scope.selectedCustomer.shippingComment = "";
-  }
+
+
 
   // Formats date
   var tokens = scope.date.toString().split(" ");
   var date = tokens[2] + " " + tokens[1] + " " + tokens[3];
 
-  scope.slipNumber.$value++;
-  scope.slipNumber.$save();
+
 
   var packingSlip;
   packingSlip = "";
-  packingSlip += '<div class="packingSlips">';
+  packingSlip += '<div>';
   // Header
   packingSlip += '<div class="row">';
   packingSlip += '<h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>';

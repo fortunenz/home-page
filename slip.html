@@ -160,6 +160,70 @@
       </div>
 
       <div id="packingSlip">
+        <div ng-repeat="n in [0,1]">
+          <div class="row">
+            <h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>
+            <strong class="col-2 packingName" ng-if="invoice === true">Invoice Slip</strong>
+            <strong class="col-2 packingName" ng-if="invoice !== true">Packing Slip</strong>
+          </div>
+
+          <div class="row packingRow">
+            <div class="col-8">
+              <p class="packingP">73 Huia Road, Otahuhu, Auckland</p>
+              <p class="packingP">PO Box 9511 New Market, Auckland</p>
+              <p class="packingP">Email: <a href="#">feltd@xtra.co.nz</a></p>
+            </div>
+            <div class="col-4">
+              <p class="packingP">Phone:    (09) 276-8681</p>
+              <p class="packingP">Fax:      (09) 276-8682</p>
+              <p class="packingP">Website:  <a href="#">www.fortunenz.com </a></p>
+            </div>
+          </div>
+
+          <div class="row packingRow">
+            <div class="col-8">
+              <p class="packingP">Deliver to:</p>
+              <p class="packingP"><strong>{{selectedCustomer.name}}</strong></p>
+              <p class="packingP">{{selectedCustomer.address}}</p>
+              <p class="packingP">{{selectedCustomer.city}}</p>
+            </div>
+            <div class="col-4">
+              <p class="packingP" ng-if="invoice === true">Invoice slip no.: {{slipNumber.$value+1}}</p>
+              <p class="packingP" ng-if="invoice !== true">Packing slip no.: {{slipNumber.$value+1}}</p>
+              <p class="packingP">Account no.: {{selectedCustomer.acc}}</p>
+              <p class="packingP">Order no.: {{orderNo}}</p>
+              <p class="packingP">Date: {{slipDate}}</p>
+            </div>
+          </div>
+
+          <div class="center" ng-if="backOrder === true && invoice === false">
+            <strong>Backorder</strong>
+          </div>
+
+          <table class="packingTable">
+            <tr>
+              <th class="packingT">Code</th>
+              <th class="packingT">Description</th>
+              <th class="packingT" ng-if="invoice !== true">Packaging</th>
+              <th class="packingT">Quantity</th>
+              <th class="packingT">Carton</th>
+              <th class="packingT" ng-if="invoice === true">Price</th>
+              <th class="packingT" ng-if="invoice === true">Total</th>
+            </tr>
+            <tr ng-repeat="item in items" ng-if="item.ordered > 0">
+              <td class="packingT">{{item.code}}</td>
+              <td class="packingT">{{item.description}}</td>
+              <td class="packingT" ng-if="invoice !== true">{{item.packaging}}</td>
+              <td class="packingT">{{item.ordered}}</td>
+              <td class="packingT">{{item.ordered}}</td>
+              <td class="packingT" ng-if="invoice === true">{{item.tempPrice | currency}}</td>
+              <td class="packingT" ng-if="invoice === true">{{item.tempPrice * item.ordered | currency}}</td>
+            </tr>
+          </table>
+
+          <!-- Inserts a page break is this is the first of two pages -->
+          <div class="break" ng-if="$index === 0"></div>
+        </div>
       </div>
     </div>
   </body>
