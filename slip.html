@@ -188,8 +188,8 @@
               <p class="packingP">{{selectedCustomer.city}}</p>
             </div>
             <div class="col-4">
-              <p class="packingP" ng-if="invoice === true">Invoice slip no.: {{slipNumber.$value+1}}</p>
-              <p class="packingP" ng-if="invoice !== true">Packing slip no.: {{slipNumber.$value+1}}</p>
+              <p class="packingP" ng-if="invoice === true">Invoice slip no.: {{slipNumber.$value}}</p>
+              <p class="packingP" ng-if="invoice !== true">Packing slip no.: {{slipNumber.$value}}</p>
               <p class="packingP">Account no.: {{selectedCustomer.acc}}</p>
               <p class="packingP">Order no.: {{orderNo}}</p>
               <p class="packingP">Date: {{slipDate}}</p>
@@ -257,6 +257,17 @@
 
           <!-- Inserts a page break is this is the first of two pages -->
           <div class="break" ng-if="$index === 0"></div>
+        </div>
+
+        <div class="shippingLabel" ng-repeat="n in shippingLabel track by $index">
+          <br><br><span ng-show="selectedCustomer.shippingComment === undefined"><br><br><br></span>
+          <p>{{selectedCustomer.name}}</p>
+          <p>{{selectedCustomer.address}}</p>
+          <p>{{selectedCustomer.city}}</p>
+          <span ng-show="selectedCustomer.shippingComment !== undefined">
+            <br>
+            <p>{{selectedCustomer.shippingComment}}</p>
+          </span>
         </div>
       </div>
     </div>

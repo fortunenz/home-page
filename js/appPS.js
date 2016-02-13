@@ -1,8 +1,8 @@
 (function() {
   var app = angular.module("app", ["firebase"]);
 
-  app.controller("appCtrl", ["$scope", "$compile", "$filter", "$firebaseArray", "$firebaseObject",
-        function($scope, $compile, $filter, $firebaseArray, $firebaseObject) {
+  app.controller("appCtrl", ["$scope", "$compile", "$filter", "$firebaseArray", "$firebaseObject", "$timeout",
+        function($scope, $compile, $filter, $firebaseArray, $firebaseObject, $timeout) {
     // Connects to the firebase server
     var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
 
@@ -106,6 +106,7 @@
     $scope.date = new Date();
     $scope.slipDate = "";
     $scope.checkoutItems = [];
+    $scope.shippingLabel = [];
 
     // Invoice view variables
     $scope.invoice = false;
@@ -216,12 +217,33 @@
           $scope.selectedCustomer.shippingComment = "";
         }
 
+        // If the customer is out of Auckland they most likely require shipping
+        // so shipping addresses will be printed automatically if the user requires
+        $scope.shippingLabel = [];
+
+        if ($scope.selectedCustomer.city !== "Auckland" && $scope.invoiceNewCustomer === false) {
+          var check = confirm("Would you like to print shipping addresses for your customer?");
+          if (check) {
+            var labelAmount = prompt("How many addresses do you need?", 0);
+            if (isNaN(parseInt(labelAmount))) {
+              alert("No shipping addresses will be printed because you did not enter a valid number");
+            } else {
+              for (var i = 0; i < labelAmount; i++) {
+                $scope.shippingLabel.push(i);
+              }
+            }
+          }
+        }
+
+        // Updates the slip number and saves to server
         $scope.slipNumber.$value++;
         $scope.slipNumber.$save();
 
-        window.print();
+        $timeout(function() {
+          window.print();
+          $scope.resetApp();
+        }, 0);
 
-        $scope.resetApp();
       }
     };
 
