@@ -344,13 +344,13 @@
         }
       // Logic for bag seal tape 12mmx66m
       } else if (item.code.includes("SEAL12")) {
-        if (amount%36 === 0) {
-          value = (amount / 36) + " ctn";
+        if (amount%item.quantity === 0) {
+          value = (amount / item.quantity) + " ctn";
         } else {
-          if (amount < 36) {
+          if (amount < item.quantity) {
             value = amount + " rolls";
           } else {
-            value = ((amount/36)-((amount%36)/36)) + " ctn + " + (amount % 36)+ " rolls";
+            value = ((amount/item.quantity)-((amount%item.quantity)/item.quantity)) + " ctn + " + (amount % item.quantity)+ " rolls";
           }
         }
       // Logic for resealable bags

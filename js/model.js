@@ -653,6 +653,7 @@ var model = {
       "code": "SEAL09R",
       "description": "Bag seal tape (9mm x 66m) red",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -661,6 +662,7 @@ var model = {
       "code": "SEAL09G",
       "description": "Bag seal tape (9mm x 66m) green",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -669,6 +671,7 @@ var model = {
       "code": "SEAL09C",
       "description": "Bag seal tape (9mm x 66m) clear",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -677,6 +680,7 @@ var model = {
       "code": "SEAL09BR",
       "description": "Bag seal tape (9mm x 66m) brown",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -685,6 +689,7 @@ var model = {
       "code": "SEAL09BL",
       "description": "Bag seal tape (9mm x 66m) black",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -693,6 +698,7 @@ var model = {
       "code": "SEAL09W",
       "description": "Bag seal tape (9mm x 66m) white",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -701,6 +707,7 @@ var model = {
       "code": "SEAL09B",
       "description": "Bag seal tape (9mm x 66m) blue",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -709,6 +716,7 @@ var model = {
       "code": "SEAL09Y",
       "description": "Bag seal tape (9mm x 66m) yellow",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -717,6 +725,7 @@ var model = {
       "code": "SEAL09O",
       "description": "Bag seal tape (9mm x 66m) orange",
       "unit": "Roll",
+      "quantity": 48,
       "packaging": "48 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -725,6 +734,7 @@ var model = {
       "code": "SEAL12R",
       "description": "Bag seal tape (12mm x 66m) Red",
       "unit": "Roll",
+      "quantity": 36,
       "packaging": "36 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0
@@ -733,6 +743,7 @@ var model = {
       "code": "SEAL12G",
       "description": "Bag seal tape (12mm x 66m) Green",
       "unit": "Roll",
+      "quantity": 36,
       "packaging": "36 rolls/ctn",
       "orderAs": "roll",
       "ordered": 0

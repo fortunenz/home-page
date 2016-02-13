@@ -214,8 +214,8 @@
               <td class="packingT">{{item.code}}</td>
               <td class="packingT">{{item.description}}</td>
               <td class="packingT" ng-if="invoice !== true">{{item.packaging}}</td>
-              <td class="packingT">{{item.ordered}}</td>
-              <td class="packingT">{{item.ordered}}</td>
+              <td class="packingT">{{item.ordered | quantity:item}}</td>
+              <td class="packingT">{{item.ordered | carton:item}}</td>
               <td class="packingT" ng-if="invoice === true">{{item.tempPrice | currency}}</td>
               <td class="packingT" ng-if="invoice === true">{{item.tempPrice * item.ordered | currency}}</td>
             </tr>
