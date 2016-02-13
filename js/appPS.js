@@ -241,6 +241,40 @@
 
         $timeout(function() {
           window.print();
+
+          // Saves the shop data to be reloaded if most recent order needs to be
+          // modified at a later stage
+          if ($scope.invoiceNewCustomer === false) {
+            var tempJson = {};
+
+            tempJson.short =  $scope.selectedCustomer.short;
+            tempJson.notes = $scope.notes;
+            tempJson.orderNo = $scope.orderNo;
+
+            for ( i = 0; i < $scope.items.length; i++) {
+              if ($scope.items[i].ordered > 0) {
+                tempJson[$scope.items[i].code] = $scope.items[i].ordered;
+              }
+            }
+
+            ref.child("slipOrders").push(tempJson);
+          }
+
+          // If customer is being invoiced prices will be checked and if needed
+          // will be saved for next time
+          if ($scope.invoice === true && $scope.invoiceNewCustomer === false) {
+            for (var i = 0, len = $scope.items.length; i < len; i++) {
+              if ($scope.items[i].ordered > 0 && $scope.items[i].tempPrice !== $scope.selectedCustomer[$scope.items[i].code]) {
+                var tempJson = {};
+                tempJson[$scope.items[i].code] = $scope.items[i].tempPrice;
+                ref.child("customers").child($scope.selectedCustomer.$id).update(
+                  tempJson
+                );
+                console.log("New price has been saved for item " + $scope.items[i].code + " with the price of $" + $scope.items[i].tempPrice);
+
+              }
+            }
+          }
           $scope.resetApp();
         }, 0);
 
@@ -262,6 +296,7 @@
           }
           $scope.checkoutList();
           $('html, body').animate({ scrollTop: 0 }, 'fast');
+          break;
         }
       }
     };
