@@ -655,7 +655,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -664,7 +664,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -673,7 +673,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -682,7 +682,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -691,7 +691,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -700,7 +700,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -709,7 +709,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -718,7 +718,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -727,7 +727,7 @@ var model = {
       "unit": "Roll",
       "quantity": 48,
       "packaging": "48 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -736,7 +736,7 @@ var model = {
       "unit": "Roll",
       "quantity": 36,
       "packaging": "36 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -745,7 +745,7 @@ var model = {
       "unit": "Roll",
       "quantity": 36,
       "packaging": "36 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {
@@ -753,7 +753,7 @@ var model = {
       "description": "Palletwrap",
       "unit": "Roll",
       "packaging": "4 rolls/ctn",
-      "orderAs": "roll",
+      "orderAs": "rolls",
       "ordered": 0
     },
     {

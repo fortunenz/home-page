@@ -343,7 +343,7 @@
           value = amount + " ctn";
         }
       // Logic for bag seal tape 12mmx66m
-      } else if (item.code.includes("SEAL12")) {
+      } else if (item.code.includes("SEAL")) {
         if (amount%item.quantity === 0) {
           value = (amount / item.quantity) + " ctn";
         } else {
