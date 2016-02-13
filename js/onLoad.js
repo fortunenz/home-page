@@ -1,8 +1,8 @@
 // Checks the height of the browser to create height of item list
 var adjustCheckoutSize = function() {
-  $("#checkoutItems").css("height", window.innerHeight - $("#checkoutHeader").height());
-  $("#invoiceCheckout").css("height", window.innerHeight - 150);
-  $("#invoiceInnerItems").css("height", window.innerHeight - 150 - 70);
+  angular.element(document.getElementById("checkoutItems")).css("height", window.innerHeight - 60 + "px");
+  angular.element(document.getElementById("invoiceCheckout")).css("height", window.innerHeight - 150 + "px");
+  angular.element(document.getElementById("invoiceInnerItems")).css("height", window.innerHeight - 150 - 70 + "px");
 };
 
 $(window).resize(function() {

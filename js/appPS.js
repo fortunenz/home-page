@@ -1,8 +1,8 @@
 (function() {
   var app = angular.module("app", ["firebase"]);
 
-  app.controller("appCtrl", ["$scope", "$compile", "$filter", "$firebaseArray", "$firebaseObject", "$timeout",
-        function($scope, $compile, $filter, $firebaseArray, $firebaseObject, $timeout) {
+  app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$timeout",
+        function($scope, $firebaseArray, $firebaseObject, $timeout, $window) {
     // Connects to the firebase server
     var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
 
@@ -330,7 +330,7 @@
     $scope.$watch("displayedItems", function() {
       if ($scope.invoice === true) {
         $scope.$evalAsync(function() {
-          $(".item").css("width", "150%");
+          angular.element(document.getElementsByClassName("item")).css("width", "150%");
         });
       }
     });
@@ -356,6 +356,10 @@
       $scope.slipDate = tokens[2] + " " + tokens[1] + " " + tokens[3];
     });
 
+    angular.element($window).bind('resize', function(){
+      adjustCheckoutSize();
+     });
+
     // Functions specific to invoice view
     // ------------------------------------------------------------------------
 
@@ -373,27 +377,27 @@
 
       // If the view has been changed to invoice view do the following
       if ($scope.invoice === true && window.innerWidth >= 1000) {
-        $("#notes").css("left", "80%");
-        $("#notes").css("top", "30px");
-        $("#notes").css("max-height", "100px");
+        angular.element(document.getElementById("notes")).css("left", "80%");
+        angular.element(document.getElementById("notes")).css("top", "30px");
+        angular.element(document.getElementById("notes")).css("max-height", "100px");
 
-        $("#mainBody").css("width", "50%");
-        $(".itemList").css("position", "relative");
-        $(".itemList").css("left", "-15%");
-        $("nav").css("width", "100%");
-        $(".item").css("width", "150%");
+        angular.element(document.getElementById("mainBody")).css("width", "50%");
+        angular.element(document.getElementsByClassName("itemList")).css("position", "relative");
+        angular.element(document.getElementsByClassName("itemList")).css("left", "-15%");
+        angular.element(document.getElementsByTagName("NAV")[0]).css("width", "100%");
+        angular.element(document.getElementsByClassName("item")).css("width", "150%");
         // Else if view has been changed back to packing slip view do the following
       } else if ($scope.invoice === false && window.innerWidth >= 1000) {
-        $("#notes").css("left", 0);
-        $("#notes").css("top", "80px");
-        $("#notes").css("max-height", "100%");
+        angular.element(document.getElementById("notes")).css("left", 0);
+        angular.element(document.getElementById("notes")).css("top", "80px");
+        angular.element(document.getElementById("notes")).css("max-height", "100%");
 
-        $("#mainBody").css("left", "0");
-        $("#mainBody").css("width", "100%");
-        $(".itemList").css("left", "0");
-        $("nav").css("width", "60%");
-        $(".item").css("width", "80%");
-        $("#checkoutItems").css("height", window.innerHeight - $("#checkoutHeader").height());
+        angular.element(document.getElementById("mainBody")).css("left", "0");
+        angular.element(document.getElementById("mainBody")).css("width", "100%");
+        angular.element(document.getElementsByClassName("itemList")).css("left", "0");
+        angular.element(document.getElementsByTagName("NAV")[0]).css("width", "60%");
+        angular.element(document.getElementsByClassName("item")).css("width", "80%");
+        angular.element(document.getElementById("checkoutItems")).css("height", window.innerHeight - 60);
       }
 
       stopScrollInvoice();
