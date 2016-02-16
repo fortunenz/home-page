@@ -466,7 +466,7 @@
       var reQuantitiy;
       var value;
 
-      if (item.code.includes("RE") || item.code.includes("WENDY01")) {
+      if (item.code.includes("RE0") || item.code.includes("WENDY01")) {
         reQuantitiy = amount * 1000;
         value = insertComma(reQuantitiy.toString()) + " pcs";
       } else if (item.unit == "1000") {
@@ -518,7 +518,7 @@
           }
         }
       // Logic for resealable bags
-      } else if (item.code.includes("RE")) {
+      } else if (item.code.includes("RE0")) {
         var reQuantitiy = amount * 1000;
 
         if (reQuantitiy < item.quantity) {
