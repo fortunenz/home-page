@@ -88,6 +88,14 @@ header {
   text-decoration: none;
 }
 
+.greeting {
+  text-align: center;
+}
+
+.greetingBreakline {
+  display: none;
+}
+
 /* Log in menu classes */
 .login-card {
   padding: 40px;
@@ -175,4 +183,19 @@ header {
 
 .login-card a:hover {
   opacity: 1;
+}
+
+@media screen and (min-width: 1000px) {
+  .greetingBreakline {
+    display: inline;
+  }
+
+  .greeting {
+    display: inline;
+    margin: 5px 0 0 5px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 5;
+  }
 }

@@ -67,15 +67,6 @@ table, th, td {
     width: 23.5%;
   }
 
-  .greeting {
-    display: inline;
-    margin: 5px 0 0 5px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 5;
-  }
-
   #orderForm {
     left: 12.5%;
     margin: 0 auto;

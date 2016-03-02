@@ -192,15 +192,6 @@ li {
     z-index: 1;
   }
 
-  .greeting {
-    text-align: left;
-    margin: 5px 0 0 5px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 5;
-  }
-
   #notes {
     margin: 5px 0 0 5px;
     position: fixed;

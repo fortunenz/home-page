@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Price Check</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
+    <script src="js/priceCheck.js"></script>
+  </head>
+
+  <body ng-controller="priceCtrl" class="container">
+    <h1 class="col-12 title"><a class="headerHome" href="index.html"><img class="logo"src="images/logo.png"> MYOB Price Check</a></h1>
+
+    <!-- The user must first login before they can use the application -->
+    <div ng-show="!access">
+      <div class="login-card">
+        <h2>Log-in</h2><br>
+        <form>
+          <input type="text" name="user" placeholder="Email" ng-model="userName">
+          <input type="password" name="pass" placeholder="Password" ng-model="password">
+          <input type="submit" name="login" class="login login-submit" value="login" ng-click="login()">
+        </form>
+      </div>
+    </div>
+
+    <!-- If the user has logged in they can use the functions -->
+    <div ng-show="access">
+      <div class="greeting">
+        <p>Hi, {{userName}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button></p>
+      </div>
+    </div>
+  </body>
+</html>

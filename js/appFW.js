@@ -51,7 +51,7 @@
          case 'facebook':
            return authData.facebook.displayName;
       }
-    }
+    };
 
     // Login variables
     $scope.password = "";
