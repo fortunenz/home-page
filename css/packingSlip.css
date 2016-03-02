@@ -71,11 +71,6 @@ li {
   margin-right: auto;
 }
 
-/* Generic styling classes */
-.center {
-  text-align: center;
-}
-
 /* Styling for button that takes user back to top of the page */
 .backToTop {
   position: fixed;

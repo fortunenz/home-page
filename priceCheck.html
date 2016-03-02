@@ -37,6 +37,24 @@
       <div class="greeting">
         <p>Hi, {{userName}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button></p>
       </div>
+
+      <!-- Form for user input -->
+      <form class="row" ng-submit="priceCheck()">
+        <div class="col-12">
+          <label>Acc no:</label>
+          <input type="number" ng-model="selectedAccNo" onclick="this.select()" />
+        </div>
+        <div class="col-12">
+          <label>Item no:</label>
+          <input type="text" ng-model="selectedItemNo" onclick="this.select()" required/>
+        </div>
+        <div class="col-12 center">
+          <input type="submit" value="Check" />
+        </div>
+      </form>
+
+      <h2>{{selectedAcc}}</h2>
+      <h2>{{selectedItem.description}}</h2>
     </div>
   </body>
 </html>

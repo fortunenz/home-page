@@ -1,9 +1,14 @@
 var myApp = angular.module('app', ["firebase"]);
 
-myApp.controller('priceCtrl', ['$scope', function($scope) {
+myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
   // Connects to the firebase server
   var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
   $scope.password = "";
+  $scope.selectedAccNo = 0;
+  $scope.selectedAcc = undefined;
+  $scope.selectedItemNo = undefined;
+  $scope.selectedItem = undefined;
+  $scope.selectedPrice = 0;
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -18,6 +23,9 @@ myApp.controller('priceCtrl', ['$scope', function($scope) {
     } else {
       console.log("Client unauthenticated.");
     }
+
+    $scope.items = $firebaseArray(ref.child('items'));
+    $scope.customers = $firebaseArray(ref.child('customers'));
   });
 
   // find a suitable name based on the meta info given by each provider
@@ -58,5 +66,25 @@ myApp.controller('priceCtrl', ['$scope', function($scope) {
     $scope.access = false;
     $scope.userName = "";
     $scope.password = "";
+  };
+
+  // Checks the user input and displays customer info if any
+  $scope.priceCheck = function() {
+    for (var i = 0, len = $scope.customers.length; i < len; i++) {
+      if ($scope.selectedAccNo == $scope.customers[i].acc) {
+        $scope.selectedAcc = $scope.customers[i].name;
+        if ($scope.customers[i][$scope.selectedItemNo.toUpperCase()]) {
+          for (var j = 0, leng = $scope.items.length; j < leng; j++) {
+            if ($scope.items[j].code == $scope.selectedItemNo.toUpperCase()) {
+              $scope.selectedItem = $scope.items[j];
+            } else {
+              console.log("could not find this item");
+            }
+          }
+        } else {
+          console.log("This item isn't logged");
+        }
+      }
+    }
   };
 }]);
