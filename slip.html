@@ -43,7 +43,7 @@
 
         <div class="greeting">
           <p>
-            Welcome back, {{name}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button><span ng-show="!selectedCustomer.name==''"><button class="clean-gray-btn" ng-click="loadData()">Load last order</button></span>
+            Hi, {{name}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button><span ng-show="!selectedCustomer.name==''"><button class="clean-gray-btn" ng-click="loadData()">Load last order</button></span>
             <br>
             Change to: <button class="clean-gray-btn" ng-click="changeView()"><span ng-show="!invoice">Invoice Slip</span><span ng-show="invoice">Packing slip</span></button>
           </p>
