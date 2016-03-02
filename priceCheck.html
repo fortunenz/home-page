@@ -49,12 +49,21 @@
           <input type="text" ng-model="selectedItemNo" onclick="this.select()" required/>
         </div>
         <div class="col-12 center">
-          <input type="submit" value="Check" />
+          <input type="submit" value="Check" class="clean-gray-btn"/>
         </div>
       </form>
 
-      <h2>{{selectedAcc}}</h2>
+      <h2>{{selectedAcc.name}}</h2>
       <h2>{{selectedItem.description}}</h2>
+      <form class="row" ng-submit="priceChange()" ng-show="selectedItem !== undefined">
+        <div class="col-6">
+          <label>Price $</label>
+          <input type="number" ng-model="selectedPrice" step="0.01" onclick="this.select()" />
+        </div>
+        <div class="col-6 center">
+          <input type="submit" value="Change" class="clean-gray-btn" />
+        </div>
+      </form>
     </div>
   </body>
 </html>

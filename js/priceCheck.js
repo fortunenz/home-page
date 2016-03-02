@@ -8,7 +8,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
   $scope.selectedAcc = undefined;
   $scope.selectedItemNo = undefined;
   $scope.selectedItem = undefined;
-  $scope.selectedPrice = 0;
+  $scope.selectedPrice = undefined;
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -70,21 +70,40 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
 
   // Checks the user input and displays customer info if any
   $scope.priceCheck = function() {
+    // Finds the customer acc details
     for (var i = 0, len = $scope.customers.length; i < len; i++) {
       if ($scope.selectedAccNo == $scope.customers[i].acc) {
-        $scope.selectedAcc = $scope.customers[i].name;
-        if ($scope.customers[i][$scope.selectedItemNo.toUpperCase()]) {
-          for (var j = 0, leng = $scope.items.length; j < leng; j++) {
-            if ($scope.items[j].code == $scope.selectedItemNo.toUpperCase()) {
-              $scope.selectedItem = $scope.items[j];
-            } else {
-              console.log("could not find this item");
-            }
-          }
-        } else {
-          console.log("This item isn't logged");
-        }
+        $scope.selectedAcc = $scope.customers[i];
       }
+    }
+
+    // Item exists in customer file, change user price to that otherwise 0
+    if ($scope.selectedAcc[$scope.selectedItemNo.toUpperCase()]) {
+      $scope.selectedPrice = $scope.selectedAcc[$scope.selectedItemNo.toUpperCase()];
+    } else {
+      $scope.selectedPrice = 0;
+    }
+
+    // Finds the item details
+    for (var i = 0, len = $scope.items.length; i < len; i++) {
+      if ($scope.items[i].code == $scope.selectedItemNo.toUpperCase()) {
+        $scope.selectedItem = $scope.items[i];
+      }
+    }
+
+    if (!$scope.selectedItem) {
+      $scope.selectedItem = undefined;
+    }
+  };
+
+  // Perform changes to the server if prices have changed or are not 0
+  $scope.priceChange = function() {
+    if ($scope.selectedPrice !== 0 && $scope.selectedPrice !== $scope.selectedAcc[$scope.selectedItem.code]) {
+      var tempJson = {};
+      tempJson[$scope.selectedItem.code] = $scope.selectedPrice;
+      ref.child("customers").child($scope.selectedAcc.$id).update(
+        tempJson
+      );
     }
   };
 }]);
