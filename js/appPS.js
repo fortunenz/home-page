@@ -531,7 +531,7 @@
           }
         }
       } else if (item.code.includes("WENDY01")) {
-        table += (amount/item.quantity) + " ctn";
+        value = ((amount*1000)/item.quantity) + " ctn";
       } else if (item.orderAs == "1000") {
         var quantity =  insertComma(amount.toString()) * item.quantity;
         value = quantity + " pcs";
