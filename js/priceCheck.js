@@ -38,7 +38,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
        case 'facebook':
          return authData.facebook.displayName;
     }
-  };
+  }
 
   // Function to log the user in so they can use the program
   $scope.login = function() {
@@ -85,7 +85,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
     }
 
     // Finds the item details
-    for (var i = 0, len = $scope.items.length; i < len; i++) {
+    for (i = 0, len = $scope.items.length; i < len; i++) {
       if ($scope.items[i].code == $scope.selectedItemNo.toUpperCase()) {
         $scope.selectedItem = $scope.items[i];
       }
@@ -104,6 +104,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
       ref.child("customers").child($scope.selectedAcc.$id).update(
         tempJson
       );
+      alert("Price of " + $scope.selectedItem.description + " has been changed to $" + $scope.selectedPrice + " for the customer " + $scope.selectedAcc.name);
     }
   };
 }]);
