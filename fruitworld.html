@@ -103,13 +103,13 @@
             </p>
           </div>
         </div>
-
+        <img src="images/arrow-up.png" class="backToTop" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast')"></img>
       </div>
 
       <div ng-show="!viewOrder.bool">
         <h3 class="no-print subHeader">Choose the shops to print</h3>
         <div class="shopList">
-          <label class="no-print checkboxes clean-gray-btn clean-gray-btn-shop" ng-repeat="shop in shops"><input type="checkbox" ng-click="selectPrint(shop)">{{shop.name}}</label>
+          <label class="no-print checkboxes clean-gray-btn clean-gray-btn-shop" ng-repeat="shop in shops"><input type="checkbox" ng-click="selectPrint(shop)" />{{shop.name}}</label>
         </div>
         <div class="center">
           <button class="no-print clean-gray-btn load" ng-click="printPreview()">Load</button>

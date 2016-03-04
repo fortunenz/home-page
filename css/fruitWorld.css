@@ -5,6 +5,8 @@
 
 .checkboxes {
   margin-bottom: 5px;
+  text-align: left;
+  padding-left: 10px;
 }
 
 .item {
@@ -19,7 +21,6 @@
 }
 
 .clean-gray-btn-shop {
-  font: bold 15px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   width: 100%;
 }
 
@@ -64,7 +65,7 @@ table, th, td {
 
 @media screen and (min-width: 1000px) {
   .clean-gray-btn-shop {
-    width: 23.5%;
+    width: 23%;
   }
 
   #orderForm {

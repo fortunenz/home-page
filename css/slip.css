@@ -18,6 +18,16 @@ li {
   margin-top: 5px;
 }
 
+/* Styling for button that takes user back to top of the page */
+.backToTop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
 /* Styling the side panel showing shopping cart */
 #checkout {
   display: none;
