@@ -14,12 +14,16 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
   ref.onAuth(function(authData) {
     $scope.access = false;
     if (authData) {
-      $scope.access = true;
-      $scope.userName = getName(authData);
-      ref.child("users").child(authData.uid).set({
-        provider: authData.provider,
-        name: getName(authData)
-      });
+      if (authData.uid == "c03ed305-143f-4fca-9a42-4ebabf14e471") {
+        window.location.replace("index.html");
+      } else {
+        $scope.access = true;
+        $scope.userName = getName(authData);
+        ref.child("users").child(authData.uid).set({
+          provider: authData.provider,
+          name: getName(authData)
+        });
+      }
     } else {
       console.log("Client unauthenticated.");
     }
