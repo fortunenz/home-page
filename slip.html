@@ -82,7 +82,10 @@
             <form id="orderForm" ng-submit="printPreview()">
               <span ng-repeat="item in displayedItems" class="row item">
                 <strong class="col-12">
-                  {{item.description}}<span ng-show="item.code.includes('RE0')"> {{item.packaging}}</span>:</strong>
+                  <!-- If the item is a heavy duty resealable bag then the item will show red -->
+                  <span ng-show="item.code.includes('RE0') && item.code.includes('H')" style="color: red">{{item.description}} {{item.packaging}}:</span>
+                  <span ng-show="!(item.code.includes('RE0') && item.code.includes('H'))">{{item.description}}<span ng-show="item.code.includes('RE0')"> {{item.packaging}}</span>:</span>
+                </strong>
                 <input ng-change="checkoutList()" ng-model="item.ordered" type="number" value="0" min="0" step="0.01" class="col-7" onclick="this.select()">
                 <span class="col-4">
                   {{item.orderAs}}
