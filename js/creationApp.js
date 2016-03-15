@@ -138,6 +138,7 @@
           "address": $scope.address,
           "city": $scope.city,
           "type": $scope.type,
+          "includeGST": $scope.includeGST,
           "shippingComment": $scope.shippingComment
         }, function(error) {
           if (error) {
@@ -151,6 +152,7 @@
             $scope.city = "";
             $scope.type = "";
             $scope.includeGST = false;
+            document.getElementById("invoiceCheckerFalse").checked = true;
             $scope.shippingComment = "";
             $scope.$apply();
           }
