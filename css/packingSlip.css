@@ -5,7 +5,6 @@ h2 {
 
 .title {
   z-index: 1;
-  position: fixed;
 }
 
 .login-card {
@@ -179,6 +178,10 @@ li {
     z-index: 1;
   }
 
+  .title {
+    position: fixed;
+  }
+
   #notes {
     margin: 5px 0 0 5px;
     position: fixed;
@@ -188,12 +191,6 @@ li {
     resize: both;
     max-width: 19%;
     height: 100px;
-  }
-
-  #title {
-    position: fixed;
-    z-index: 2;
-    background-color: white;
   }
 
   #customerDetails {
