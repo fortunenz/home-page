@@ -70,8 +70,9 @@ table, th, td {
   }
 
   #orderForm {
-    left: 12.5%;
-    margin: 0 auto;
+    left: 25%;
+    width: 60%;
+    margin-left: 20px;
   }
 
   #loadedOrders {
