@@ -31,6 +31,9 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
     }
 
     $scope.items = $firebaseArray(ref.child('items'));
+    $scope.items.$loaded().then(function() {
+      sortByKey($scope.items, "code");
+    });
     $scope.customers = $firebaseArray(ref.child('customers'));
   });
 
@@ -45,6 +48,13 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
          return authData.facebook.displayName;
     }
   }
+
+  var sortByKey = function(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  };
 
   // Function to log the user in so they can use the program
   $scope.login = function() {
@@ -139,7 +149,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
         }
       }
     }
-    
+
     $scope.predictedClick = false;
   });
 }]);
