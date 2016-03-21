@@ -9,6 +9,8 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
   $scope.selectedItemNo = undefined;
   $scope.selectedItem = undefined;
   $scope.selectedPrice = undefined;
+  $scope.predictedItems = [];
+  $scope.predictedClick = false;
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -111,4 +113,33 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
       alert("Price of " + $scope.selectedItem.description + " has been changed to $" + $scope.selectedPrice + " for the customer " + $scope.selectedAcc.name);
     }
   };
+
+  $scope.selectPrediction = function(item) {
+    $scope.predictedClick = true;
+    $scope.selectedItemNo = item;
+    $scope.predictedItems = [];
+  };
+
+  $scope.$watch('selectedItemNo', function(newValue, oldValue) {
+    if (newValue == oldValue) {
+      return;
+    }
+
+    if ($scope.items.length === 0) {
+      alert("Items have not been loaded yet");
+      return;
+    }
+
+    if (!$scope.predictedClick) {
+      $scope.predictedItems = [];
+
+      for (var i = 0, len = $scope.items.length; i < len; i++) {
+        if ($scope.items[i].code.indexOf(newValue.toUpperCase()) == 0) {
+          $scope.predictedItems.push($scope.items[i].code);
+        }
+      }
+    }
+    
+    $scope.predictedClick = false;
+  });
 }]);
