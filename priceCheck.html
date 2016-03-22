@@ -42,8 +42,10 @@
       <!-- Form for user input -->
       <form class="row" ng-submit="priceCheck()">
         <div class="col-12 center formLine">
-          <label>Acc no:</label>
-          <input type="number" ng-model="selectedAccNo" onclick="this.select()" />
+          <label for="selectedAccNo">
+            Acc no:
+            <input id="selectedAccNo" type="number" ng-model="selectedAccNo" onclick="this.select(); document.getElementById('selectedAccNo').setCustomValidity('');" />
+          </label>
         </div>
         <div class="col-12 center formLine">
           <label for="selectedItemNo">

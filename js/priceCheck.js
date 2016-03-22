@@ -88,29 +88,33 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
 
   // Checks the user input and displays customer info if any
   $scope.priceCheck = function() {
-    // Finds the customer acc details
-    for (var i = 0, len = $scope.customers.length; i < len; i++) {
-      if ($scope.selectedAccNo == $scope.customers[i].acc) {
-        $scope.selectedAcc = $scope.customers[i];
-      }
-    }
-
-    // Item exists in customer file, change user price to that otherwise 0
-    if ($scope.selectedAcc[$scope.selectedItemNo.toUpperCase()]) {
-      $scope.selectedPrice = $scope.selectedAcc[$scope.selectedItemNo.toUpperCase()];
+    if ($scope.selectedAccNo === 0) {
+      document.getElementById("selectedAccNo").setCustomValidity("No account number entered");
     } else {
-      $scope.selectedPrice = 0;
-    }
-
-    // Finds the item details
-    for (i = 0, len = $scope.items.length; i < len; i++) {
-      if ($scope.items[i].code == $scope.selectedItemNo.toUpperCase()) {
-        $scope.selectedItem = $scope.items[i];
+      // Finds the customer acc details
+      for (var i = 0, len = $scope.customers.length; i < len; i++) {
+        if ($scope.selectedAccNo == $scope.customers[i].acc) {
+          $scope.selectedAcc = $scope.customers[i];
+        }
       }
-    }
 
-    if (!$scope.selectedItem) {
-      $scope.selectedItem = undefined;
+      // Item exists in customer file, change user price to that otherwise 0
+      if ($scope.selectedAcc[$scope.selectedItemNo.toUpperCase()]) {
+        $scope.selectedPrice = $scope.selectedAcc[$scope.selectedItemNo.toUpperCase()];
+      } else {
+        $scope.selectedPrice = 0;
+      }
+
+      // Finds the item details
+      for (i = 0, len = $scope.items.length; i < len; i++) {
+        if ($scope.items[i].code == $scope.selectedItemNo.toUpperCase()) {
+          $scope.selectedItem = $scope.items[i];
+        }
+      }
+
+      if (!$scope.selectedItem) {
+        $scope.selectedItem = undefined;
+      }
     }
   };
 
@@ -136,7 +140,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
     if (newValue == oldValue) {
       return;
     }
-    
+
     if (!$scope.predictedClick) {
       $scope.predictedItems = [];
 
