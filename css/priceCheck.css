@@ -35,3 +35,7 @@ hr {
 .priceChanger .clean-gray-btn {
   width: 90%;
 }
+
+.predictedItems {
+  cursor: pointer;
+}

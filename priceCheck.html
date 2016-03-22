@@ -46,9 +46,11 @@
           <input type="number" ng-model="selectedAccNo" onclick="this.select()" />
         </div>
         <div class="col-12 center formLine">
-          <label>Item no:</label>
-          <input type="text" ng-model="selectedItemNo" required />
-          <h2 ng-repeat="item in predictedItems" ng-click="selectPrediction(item)">{{item}}</h2>
+          <label for="selectedItemNo">
+            Item no:
+            <input id="selectedItemNo" type="text" ng-model="selectedItemNo" required />
+          </label>
+          <h2 class="predictedItems" ng-repeat="item in predictedItems" ng-click="selectPrediction(item)">{{item}}</h2>
         </div>
         <div class="col-12 center formLine">
           <input type="submit" value="Check" class="clean-gray-btn"/>

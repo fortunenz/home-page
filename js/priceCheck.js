@@ -15,6 +15,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
     $scope.access = false;
+    document.getElementById("selectedItemNo").disabled = true;
     if (authData) {
       if (authData.uid == "c03ed305-143f-4fca-9a42-4ebabf14e471") {
         window.location.replace("index.html");
@@ -33,6 +34,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
     $scope.items = $firebaseArray(ref.child('items'));
     $scope.items.$loaded().then(function() {
       sortByKey($scope.items, "code");
+      document.getElementById("selectedItemNo").disabled = false;
     });
     $scope.customers = $firebaseArray(ref.child('customers'));
   });
@@ -134,12 +136,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
     if (newValue == oldValue) {
       return;
     }
-
-    if ($scope.items.length === 0) {
-      alert("Items have not been loaded yet");
-      return;
-    }
-
+    
     if (!$scope.predictedClick) {
       $scope.predictedItems = [];
 
