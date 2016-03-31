@@ -61,3 +61,11 @@ var insertComma = function(number) {
     return number;
   }
 };
+
+// When user pressed the grave accent key they will focus on the search box
+// this allows for q quicker using exp
+document.addEventListener('keyup', function(event) {
+  if(event.keyCode == 192) {
+    document.getElementById("searchBox").focus();
+  }
+});

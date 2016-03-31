@@ -52,7 +52,7 @@
         <nav>
           <ul>
             <li class="center">
-              <input type="text" ng-model="searchBox" placeholder="Item search">
+              <input id="searchBox" type="text" ng-model="searchBox" placeholder="Item search">
               <button ng-click="showList()" class="clean-gray-btn">Select branch</button>
               <ul class="shopList" ng-show="viewList">
                 <li ng-repeat="shop in shops" ng-click="listClick(shop)" class="clean-gray-btn clean-gray-btn-shop">{{shop.name}}</li>
