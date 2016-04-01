@@ -63,7 +63,13 @@
         <div>
           <form id="orderForm" class="row" ng-submit="saveOrder()">
             <span ng-repeat="item in displayedItems" class="item col-12 row">
-              <strong class="col-12">{{item.description}}:</strong>
+              <strong class="col-12">
+                <!-- If the item is a heavy duty resealable bag then the item will show red -->
+                <span ng-show="item.code.indexOf('RE0') == 0 && item.code.indexOf('H') == 5" style="color: red">{{item.description}} {{item.packaging}}:</span>
+                <!-- If the item is a black foam plate then the item will show red -->
+                <span ng-show="item.code.indexOf('FP') == 0 && item.code.includes('B')" style="color: red">{{item.description}}:</span>
+                <span ng-show="!((item.code.indexOf('RE0') == 0 && item.code.indexOf('H') == 5) || (item.code.indexOf('FP') == 0 && item.code.includes('B')))">{{item.description}}<span ng-show="item.code.includes('RE0')"> {{item.packaging}}</span>:</span>
+              </strong>
               <input ng-change="checkoutList()" ng-model="item.ordered" type="number" step="0.01" value="0" min="0" class="col-7" onclick="this.select()">
               <span class="col-4 itemIncrement">
                 {{item.orderAs}}
