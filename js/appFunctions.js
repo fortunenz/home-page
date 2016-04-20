@@ -1,6 +1,13 @@
-app.filter("reverse", function() {
-  return function(items) {
-    return items.slice().reverse();
+app.filter("sortSavedFruitWorldOrders", function() {
+  return function(orders, branchShort) {
+    var returnOrders = [];
+    for (var i = 0, len = orders.length; i < len; i++) {
+      if (orders[i].short == branchShort) {
+        returnOrders.push(orders[i]);
+      }
+    }
+
+    return returnOrders.slice().reverse().slice(0,5);
   };
 });
 
