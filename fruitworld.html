@@ -82,15 +82,14 @@
           </form>
           <br>
         </div>
+        <!-- Saved orders -->
         <div ng-show="selectedBranch.selected" id="loadedOrders">
           <h3>Saved orders for {{selectedBranch.name}}</h3>
-          <span ng-repeat="order in orders | reverse">
-            <div class="oldOrders" ng-show="order.short == selectedBranch.short">
-              <p>
-                File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder(orders.length-$index-1)">Load</button>
-              </p>
-            </div>
-          </span>
+          <div class="oldOrders" ng-repeat="order in orders | reverse" ng-if="order.short == selectedBranch.short">
+            <p>
+              File last modified: {{order.time}} <button class="clean-gray-btn" ng-click="loadOrder(orders.length-$index-1)">Load</button>
+            </p>
+          </div>
         </div>
 
         <div id="checkout">
