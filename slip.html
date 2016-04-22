@@ -19,7 +19,8 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/onLoad.js"></script>
     <script src="js/appPS.js"></script>
-    <script src="js/appFunctions.js"></script>
+    <script src="js/appFilters.js"></script>
+    <script src="js/appDirectives.js"></script>
   </head>
   <body ng-controller="appCtrl" class="container">
     <!-- The user must first login before they can use the application -->
@@ -83,11 +84,7 @@
             <form id="orderForm" ng-submit="printPreview()">
               <span ng-repeat="item in displayedItems" class="row item">
                 <strong class="col-12">
-                  <!-- If the item is a heavy duty resealable bag then the item will show red -->
-                  <span ng-show="item.code.indexOf('RE0') == 0 && item.code.indexOf('H') == 5" style="color: red">{{item.description}} {{item.packaging}}:</span>
-                  <!-- If the item is a black foam plate then the item will show red -->
-                  <span ng-show="item.code.indexOf('FP') == 0 && item.code.includes('B')" style="color: red">{{item.description}}:</span>
-                  <span ng-show="!((item.code.indexOf('RE0') == 0 && item.code.indexOf('H') == 5) || (item.code.indexOf('FP') == 0 && item.code.includes('B')))">{{item.description}}<span ng-show="item.code.includes('RE0')"> {{item.packaging}}</span>:</span>
+                  <slip-sort-description item="item"></slip-sort-description>
                 </strong>
                 <input ng-change="checkoutList()" ng-model="item.ordered" type="number" value="0" min="0" step="0.01" class="col-7" onclick="this.select()">
                 <span class="col-4">

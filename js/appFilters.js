@@ -6,7 +6,6 @@ app.filter("sortSavedFruitWorldOrders", function() {
         returnOrders.push(orders[i]);
       }
     }
-
     return returnOrders.slice().reverse().slice(0,5);
   };
 });
