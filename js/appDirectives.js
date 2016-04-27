@@ -1,9 +1,9 @@
 app.directive("slipSortDescription", function() {
-  function link(scope, element, attrs) {
+  function link(scope, element) {
     function shouldBeRed(itemCode) {
-      if (itemCode.indexOf("RE0") == 0 && itemCode.indexOf("H") == 5) {
+      if (itemCode.indexOf("RE0") === 0 && itemCode.indexOf("H") == 5) {
         return true;
-      } else if (itemCode.indexOf("FP") == 0 && itemCode.includes("B")) {
+      } else if (itemCode.indexOf("FP") === 0 && itemCode.includes("B")) {
         return true;
       }
 
@@ -11,7 +11,7 @@ app.directive("slipSortDescription", function() {
     }
 
     function shouldHavePackaging(itemCode) {
-      if (itemCode.indexOf('RE0') == 0) {
+      if (itemCode.indexOf('RE0') === 0) {
         return true;
       }
 
