@@ -28,8 +28,7 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
         }
         sortByKey($scope.shops, "name");
       });
-
-      //ref.child('slipNumber').set(3125);
+      
       // updates the order number
       $scope.slipNumber = $firebaseObject(ref.child('slipNumber'));
 
