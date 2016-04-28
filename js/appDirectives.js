@@ -48,5 +48,25 @@ app.directive("slipLoginCard", function() {
     restrict: 'E',
     transclude: true,
     templateUrl: 'htmlTemplates/loginCard.html'
+  };
+});
+
+app.directive("slipLogout", function() {
+  function link(scope, element, attr) {
+    element.text("Logout");
+
+    element.on('click', function() {
+      ref.unauth();
+      scope.loggedEmail = "";
+      scope.loggedPass = "";
+      scope.access = false;
+      scope.$apply();
+    });
   }
+
+  return {
+    restrict: 'A',
+    transclude: true,
+    link: link
+  };
 });

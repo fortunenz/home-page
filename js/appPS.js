@@ -1,9 +1,10 @@
 var app = angular.module("app", ["firebase"]);
 
+// Connects to the firebase server
+var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
+
 app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$timeout",
       function($scope, $firebaseArray, $firebaseObject, $timeout, $window) {
-  // Connects to the firebase server
-  var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -130,14 +131,6 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
     }, {
       remember: "default"
     });
-  };
-
-  // Function to log the user out of applciation for security
-  $scope.logout = function() {
-    ref.unauth();
-    $scope.loggedEmail = "";
-    $scope.loggedPass = "";
-    $scope.access = false;
   };
 
   // Displays the list of shops that can be accessed

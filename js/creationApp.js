@@ -16,7 +16,6 @@ app.controller("mainController", function($scope) {
 
   $scope.loggedEmail = "";
   $scope.loggedPass = "";
-  $scope.user;
 
   $scope.email = "";
   $scope.password = "";

@@ -27,15 +27,10 @@ app.controller("mainController", function($scope) {
       } else {
         console.log("Authenticated successfully with payload:", authData);
         $scope.access = true;
-        $scope.loggedEmail = "";
-        $scope.loggedPass = "";
         $scope.$apply();
       }
+    }, {
+      remember: "default"
     });
-  };
-
-  $scope.logout = function() {
-    ref.unauth();
-    $scope.access = false;
   };
 });

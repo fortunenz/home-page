@@ -1,9 +1,10 @@
 var app = angular.module("checklist", ["firebase"]);
 
+// Connects to the firebase server
+var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
+
 app.controller("appCtrl", ["$scope", "$compile", "$firebaseArray", "$firebaseObject",
-function($scope, $compile, $firebaseArray, $firebaseObject) {
-  // Connects to the firebase server
-  var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
+  function($scope, $compile, $firebaseArray, $firebaseObject) {
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -85,14 +86,6 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
     }, {
       remember: "default"
     });
-  };
-
-  // Function to log the user out of applciation for security
-  $scope.logout = function() {
-    ref.unauth();
-    $scope.loggedEmail = "";
-    $scope.loggedPass = "";
-    $scope.access = false;
   };
 
   // Changed the viewOrder value when clicked

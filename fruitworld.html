@@ -35,7 +35,10 @@
     <!-- If the user has logged in they can use the functions -->
     <div ng-show="access">
       <div class="greeting no-print">
-        <p>Hi, {{loggedEmail}}! <br class="greetingBreakline"><button class="clean-gray-btn" ng-click="logout()">Logout</button></p>
+        <p>Hi, {{loggedEmail}}!
+          <br class="greetingBreakline">
+          <button slip-logout class="clean-gray-btn"></button>
+        </p>
       </div>
       <div class="center no-print col-12">
         <button class="clean-gray-btn" ng-click="changeView()">{{viewOrder.id}}</button>

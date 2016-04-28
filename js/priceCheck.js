@@ -1,8 +1,9 @@
 var app = angular.module('app', ["firebase"]);
 
+// Connects to the firebase server
+var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
+
 app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
-  // Connects to the firebase server
-  var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
   $scope.loggedPass = "";
   $scope.selectedAccNo = 0;
   $scope.selectedAcc = undefined;
@@ -49,7 +50,7 @@ app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fireb
   // Function to log the user in so they can use the program
   $scope.login = function() {
     ref.authWithPassword({
-      email    : $scope.userName,
+      email    : $scope.loggedEmail,
       password : $scope.loggedPass
     }, function(error, authData) {
       if (error) {
@@ -64,14 +65,6 @@ app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fireb
     }, {
       remember: "default"
     });
-  };
-
-  // Function to log the user out of applciation for security
-  $scope.logout = function() {
-    ref.unauth();
-    $scope.loggedEmail = "";
-    $scope.loggedPass = "";
-    $scope.access = false;
   };
 
   // Checks the user input and displays customer info if any
