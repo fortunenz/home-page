@@ -11,6 +11,7 @@
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="js/indexApp.js"></script>
+    <script src="js/appDirectives.js"></script>
   </head>
 
   <body class="container" ng-controller="mainController">
@@ -21,14 +22,8 @@
     </header>
 
     <!-- IF the user hasn't logged in show this div -->
-    <div class="login-card" ng-show="!access">
-      <h2>Log-in</h2><br>
-      <form>
-        <input type="text" name="user" placeholder="Email" ng-model="loggedEmail">
-        <input type="password" name="pass" placeholder="Password" ng-model="loggedPass">
-        <input type="submit" name="login" class="login login-submit" value="Log In" ng-click="login()">
-      </form>
-    </div>
+    <slip-login-card class="row login-card" ng-show="!access">
+    </slip-login-card>
 
     <!-- IF the user has logged in show this div -->
     <div ng-show="access">

@@ -10,7 +10,7 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
     $scope.access = false;
     if (authData) {
       $scope.access = true;
-      $scope.userName = getName(authData);
+      $scope.loggedEmail = getName(authData);
       ref.child("users").child(authData.uid).set({
         provider: authData.provider,
         name: getName(authData)
@@ -28,7 +28,7 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
         }
         sortByKey($scope.shops, "name");
       });
-      
+
       // updates the order number
       $scope.slipNumber = $firebaseObject(ref.child('slipNumber'));
 
@@ -39,20 +39,8 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
     }
   });
 
-  // find a suitable name based on the meta info given by each provider
-  function getName(authData) {
-    switch(authData.provider) {
-       case 'password':
-         return authData.password.email.replace(/@.*/, '');
-       case 'twitter':
-         return authData.twitter.displayName;
-       case 'facebook':
-         return authData.facebook.displayName;
-    }
-  };
-
   // Login variables
-  $scope.password = "";
+  $scope.loggedPass = "";
 
   // Application variables
   $scope.viewOrder = {
@@ -83,8 +71,8 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
   // Function to log the user in so they can use the program
   $scope.login = function() {
     ref.authWithPassword({
-      email    : $scope.userName,
-      password : $scope.password
+      email    : $scope.loggedEmail,
+      password : $scope.loggedPass
     }, function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
@@ -102,9 +90,9 @@ function($scope, $compile, $firebaseArray, $firebaseObject) {
   // Function to log the user out of applciation for security
   $scope.logout = function() {
     ref.unauth();
+    $scope.loggedEmail = "";
+    $scope.loggedPass = "";
     $scope.access = false;
-    $scope.userName = "";
-    $scope.password = "";
   };
 
   // Changed the viewOrder value when clicked

@@ -93,8 +93,8 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
   }
 
   // Login variables
-  $scope.userName = "";
-  $scope.password = "";
+  $scope.loggedEmail = "";
+  $scope.loggedPass = "";
 
   // Application variables
   $scope.selectedCustomer = {};
@@ -117,8 +117,8 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
   // Function to log the user in so they can use the program
   $scope.login = function() {
     ref.authWithPassword({
-      email    : $scope.userName,
-      password : $scope.password
+      email    : $scope.loggedEmail,
+      password : $scope.loggedPass
     }, function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
@@ -135,7 +135,8 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
   // Function to log the user out of applciation for security
   $scope.logout = function() {
     ref.unauth();
-    $scope.userName = "";
+    $scope.loggedEmail = "";
+    $scope.loggedPass = "";
     $scope.access = false;
   };
 

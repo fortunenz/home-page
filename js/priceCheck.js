@@ -1,9 +1,9 @@
-var myApp = angular.module('app', ["firebase"]);
+var app = angular.module('app', ["firebase"]);
 
-myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
+app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
   // Connects to the firebase server
   var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
-  $scope.password = "";
+  $scope.loggedPass = "";
   $scope.selectedAccNo = 0;
   $scope.selectedAcc = undefined;
   $scope.selectedItemNo = undefined;
@@ -21,7 +21,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
         window.location.replace("index.html");
       } else {
         $scope.access = true;
-        $scope.userName = getName(authData);
+        $scope.loggedEmail = getName(authData);
         ref.child("users").child(authData.uid).set({
           provider: authData.provider,
           name: getName(authData)
@@ -39,18 +39,6 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
     $scope.customers = $firebaseArray(ref.child('customers'));
   });
 
-  // find a suitable name based on the meta info given by each provider
-  function getName(authData) {
-    switch(authData.provider) {
-       case 'password':
-         return authData.password.email.replace(/@.*/, '');
-       case 'twitter':
-         return authData.twitter.displayName;
-       case 'facebook':
-         return authData.facebook.displayName;
-    }
-  }
-
   var sortByKey = function(array, key) {
     return array.sort(function(a, b) {
         var x = a[key]; var y = b[key];
@@ -62,7 +50,7 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
   $scope.login = function() {
     ref.authWithPassword({
       email    : $scope.userName,
-      password : $scope.password
+      password : $scope.loggedPass
     }, function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
@@ -81,9 +69,9 @@ myApp.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fir
   // Function to log the user out of applciation for security
   $scope.logout = function() {
     ref.unauth();
+    $scope.loggedEmail = "";
+    $scope.loggedPass = "";
     $scope.access = false;
-    $scope.userName = "";
-    $scope.password = "";
   };
 
   // Checks the user input and displays customer info if any

@@ -42,3 +42,11 @@ app.directive("slipSortDescription", function() {
     link: link
   };
 });
+
+app.directive("slipLoginCard", function() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    templateUrl: 'htmlTemplates/loginCard.html'
+  }
+});

@@ -15,19 +15,14 @@
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
 
     <script src="js/creationApp.js"></script>
+    <script src="js/appDirectives.js"></script>
+    <script src="js/helper.js"></script>
   </head>
 
   <body class="container" ng-controller="mainController">
     <h1 class="col-12 title"><a class="headerHome" href="index.html"><img class="logo" src="images/logo.png">Creation Page</a></h1>
 
-    <div class="login-card" ng-show="!access">
-      <h2>Log-in</h2><br>
-      <form>
-        <input type="text" name="user" placeholder="Email" ng-model="loggedEmail">
-        <input type="password" name="pass" placeholder="Password" ng-model="loggedPass">
-        <input type="submit" name="login" class="login login-submit" value="Log In" ng-click="login()">
-      </form>
-    </div>
+    <slip-login-card class="row login-card" ng-show="!access"></slip-login-card>
 
     <!-- Creating more users -->
     <div class="row"  ng-show="access">
