@@ -328,21 +328,6 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
     }
   });
 
-  // Watches if the search box and changes the displayed items accordingly
-  // if the user searches for items
-  $scope.$watch("searchBox", function() {
-    if ($scope.searchBox.trim().length === 0) {
-      $scope.displayedItems = $scope.items;
-    } else {
-      $scope.displayedItems = [];
-      for (var i = 0, len = $scope.items.length; i < len; i++) {
-        if ($scope.items[i].description.toLowerCase().includes($scope.searchBox.toLowerCase()) || $scope.items[i].code.toLowerCase().includes($scope.searchBox.toLowerCase())) {
-          $scope.displayedItems.push($scope.items[i]);
-        }
-      }
-    }
-  });
-
   // Watched if the user changes the packing slip date it will give appropriate value
   $scope.$watch("date", function() {
     var tokens = $scope.date.toString().split(" ");

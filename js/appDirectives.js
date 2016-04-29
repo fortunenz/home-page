@@ -55,11 +55,36 @@ app.directive("slipLogout", function() {
   function link(scope, element, attr) {
     element.text("Logout");
 
-    element.on('click', function() {
+    element.on("click", function() {
       ref.unauth();
       scope.loggedEmail = "";
       scope.loggedPass = "";
       scope.access = false;
+      scope.$apply();
+    });
+  }
+
+  return {
+    restrict: 'A',
+    transclude: true,
+    link: link
+  };
+});
+
+app.directive("slipSearchBox", function() {
+  function link(scope, element, attr) {
+    element.on("input", function() {
+      if (scope.searchBox.trim().length === 0) {
+        scope.displayedItems = scope.items;
+      } else {
+        scope.displayedItems = [];
+        for (var i = 0, len = scope.items.length; i < len; i++) {
+          if (scope.items[i].description.toLowerCase().includes(scope.searchBox.toLowerCase()) ||
+              scope.items[i].code.toLowerCase().includes(scope.searchBox.toLowerCase())) {
+            scope.displayedItems.push(scope.items[i]);
+          }
+        }
+      }
       scope.$apply();
     });
   }
