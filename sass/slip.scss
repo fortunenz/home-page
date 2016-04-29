@@ -1,0 +1,112 @@
+h2, h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.load {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-top: 5px;
+}
+
+/* Styling for button that takes user back to top of the page */
+.backToTop {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+/* Styling the side panel showing shopping cart */
+#checkout {
+  display: none;
+  width: 20%;
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+#checkoutHeader {
+  height: 60px;
+}
+
+#checkoutItems {
+  overflow-y: auto;
+}
+
+.checkoutButtons {
+  float: right;
+  margin-top: 5px;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+
+/* Packing slip stylving */
+.packingFullPage {
+  width: 100%;
+}
+
+#packingSlip {
+  display: none;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.packingName {
+  text-align: right;
+}
+
+.packingTitle {
+  position: relative;
+  top: -15px;
+  font-family: 'Lora', serif;
+  font-size: 160%;
+}
+
+.packingRow {
+  margin-bottom: 20px;
+}
+
+.packingP {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.packingTable {
+  width: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+  #checkout {
+    display: inline;
+  }
+
+  #orderForm {
+    width: 80%;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  #packingSlip {
+    display: inline;
+  }
+}

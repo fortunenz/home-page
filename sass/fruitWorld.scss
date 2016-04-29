@@ -1,0 +1,98 @@
+.subHeader {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.checkboxes {
+  margin-bottom: 5px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.item {
+  margin-top: 15px;
+}
+
+.saveOrderBtn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 4;
+}
+
+.clean-gray-btn-shop {
+  width: 100%;
+}
+
+.clean-gray-btn-increment {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.shopList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#orderForm {
+  position: relative;
+  width: 95%;
+  left: 5%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+#print {
+  font-size: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* Packing slip stylving */
+.packingSign {
+  margin-top: 50px;
+}
+
+@media screen and (min-width: 1000px) {
+  .clean-gray-btn-shop {
+    width: 23%;
+  }
+
+  #orderForm {
+    left: 25%;
+    width: 60%;
+    margin-left: 20px;
+  }
+
+  #loadedOrders {
+    position: fixed;
+    width: 20%;
+    top: 80px;
+    overflow-y: auto;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  #packingSlip {
+    display: inline;
+  }
+
+  .packingSlips {
+    page-break-before: always;
+  }
+}
