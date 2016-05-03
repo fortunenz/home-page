@@ -131,63 +131,7 @@
           </table>
         </div>
 
-        <div id="packingSlip" ng-repeat="shop in spreadsheetArray">
-          <div ng-repeat="n in [0,1]" class="packingSlips packingFullPage">
-            <div class="row">
-              <h1 class="col-10 packingTitle"><img class="logo"src="images/logo.png"> FORTUNE ENTERPRISES CO (NZ) LTD</h1>
-              <strong class="col-2 packingName">Packing Slip</strong>
-            </div>
-
-            <div class="row packingRow">
-              <div class="col-8">
-                <p class="packingP">73 Huia Road, Otahuhu, Auckland</p>
-                <p class="packingP">PO Box 9511 New Market, Auckland</p>
-                <p class="packingP">Email: <a href="#">feltd@xtra.co.nz</a></p>
-              </div>
-              <div class="col-4">
-                <p class="packingP right">Phone:    (09) 276-8681</p>
-                <p class="packingP right">Fax:      (09) 276-8682</p>
-                <p class="packingP right">Website:  <a href="#">www.fortunenz.com</a></p>
-              </div>
-            </div>
-
-            <div class="row packingRow">
-              <div class="col-8">
-                <p class="packingP">Deliver to:</p>
-                <p class="packingP"><strong>{{shop.name}}</strong></p>
-                <p class="packingP">{{shop.address}}</p>
-                <p class="packingP">{{shop.city}}</p>
-              </div>
-              <div class="col-4">
-                <p class="packingP">Packing slip no.: {{shop.slipNumber}}</p>
-                <p class="packingP">Account no.: {{shop.acc}}</p>
-                <p class="packingP">Date: {{date}}</p>
-              </div>
-            </div>
-
-            <table class="packingTable">
-              <tr>
-                <th>Code</th>
-                <th>Description</th>
-                <th>Packaging</th>
-                <th>Quantity</th>
-                <th>Carton</th>
-              </tr>
-              <tr ng-repeat="item in items" ng-if="shop.hasOwnProperty(item.code) && shop[item.code] > 0">
-                <td>{{item.code}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.packaging}}</td>
-                <td>{{shop[item.code] | quantity:item}}</td>
-                <td>{{shop[item.code] | carton:item}}</td>
-              </tr>
-            </table>
-
-            <div class="packingSign">
-              <p>Name: _________________________________</p><br>
-              <p>Signature: ______________________________</p>
-            </div>
-          </div>
-        </div>
+        <slip-packing-slip-fruit-world id="packingSlip" ng-repeat="selectedCustomer in spreadsheetArray"></slip-packing-slip-fruit-world>
       </div>
     </div>
   </body>

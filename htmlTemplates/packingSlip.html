@@ -1,0 +1,76 @@
+<div ng-repeat="n in [0,1]">
+  <slip-packing-slip-header></slip-packing-slip-header>
+
+  <div class="center" ng-if="backOrder === true && invoice === false">
+    <strong>Backorder</strong>
+  </div>
+
+  <table class="packingTable">
+    <tr>
+      <th class="packingT">Code</th>
+      <th class="packingT">Description</th>
+      <th class="packingT" ng-if="invoice !== true">Packaging</th>
+      <th class="packingT">Quantity</th>
+      <th class="packingT">Carton</th>
+      <th class="packingT" ng-if="invoice === true">Price</th>
+      <th class="packingT" ng-if="invoice === true">Total</th>
+    </tr>
+    <tr ng-repeat="item in items" ng-if="item.ordered > 0">
+      <td class="packingT">{{item.code}}</td>
+      <td class="packingT">{{item.description}}</td>
+      <td class="packingT" ng-if="invoice !== true">{{item.packaging}}</td>
+      <td class="packingT">{{item.ordered | quantity:item}}</td>
+      <td class="packingT">{{item.ordered | carton:item}}</td>
+      <td class="packingT" ng-if="invoice === true">{{item.tempPrice | currency}}</td>
+      <td class="packingT" ng-if="invoice === true">{{item.tempPrice * item.ordered | currency}}</td>
+    </tr>
+  </table>
+
+  <div class="packingTotalTable right" ng-if="invoice === true">
+    <table ng-if="selectedCustomer.includeGST !== true">
+      <tr>
+        <th class="packingT">Sub Total</th>
+        <td class="packingT">{{subTotal | currency}}</td>
+      </tr>
+      <tr>
+        <th class="packingT">GST</th>
+        <td class="packingT">{{gst | currency}}</td>
+      </tr>
+      <tr>
+        <th class="packingT">Total</th>
+        <td class="packingT">{{grandTotal | currency}}</td>
+      </tr>
+    </table>
+    <table ng-if="selectedCustomer.includeGST === true">
+      <tr>
+        <th class="packingT">Total including GST</th>
+        <td class="packingT">{{subTotal | currency}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <br><br>
+  <div class="packingSign" ng-if="selectedCustomer.city == 'Auckland'">
+    <p>Name: _________________________________</p><br>
+    <p>Signature: ______________________________</p>
+    <p class="packingPaymentInfo" ng-if="invoice === true && selectedCustomer.acc !== ' '">Please pay direct to bank account: Westpac 03-0166-0248508-00</p>
+  </div>
+
+  <div class="packingNotes" ng-if="notes.trim().length !== 0">
+    <p class="packingNotesInner">{{notes}}</p>
+  </div>
+
+  <!-- Inserts a page break is this is the first of two pages -->
+  <div class="break" ng-if="$index === 0"></div>
+</div>
+
+<div class="shippingLabel" ng-repeat="n in shippingLabel track by $index">
+  <br><br><span ng-show="selectedCustomer.shippingComment === undefined"><br><br><br></span>
+  <p>{{selectedCustomer.name}}</p>
+  <p>{{selectedCustomer.address}}</p>
+  <p>{{selectedCustomer.city}}</p>
+  <span ng-show="selectedCustomer.shippingComment !== undefined">
+    <br>
+    <p>{{selectedCustomer.shippingComment}}</p>
+  </span>
+</div>

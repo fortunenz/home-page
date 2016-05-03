@@ -95,3 +95,24 @@ app.directive("slipSearchBox", function() {
     link: link
   };
 });
+
+app.directive("slipPackingSlip", function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'htmlTemplates/packingSlip.html'
+  };
+});
+
+app.directive("slipPackingSlipFruitWorld", function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'htmlTemplates/packingSlipFruitWorld.html'
+  };
+});
+
+app.directive("slipPackingSlipHeader", function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'htmlTemplates/packingSlipHeader.html'
+  };
+});

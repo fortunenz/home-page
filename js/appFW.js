@@ -67,7 +67,7 @@ app.controller("appCtrl", ["$scope", "$compile", "$firebaseArray", "$firebaseObj
 
   var systemDate = new Date();
   var tokens = systemDate.toString().split(" ");
-  $scope.date = tokens[2] + " " + tokens[1] + " " + tokens[3];
+  $scope.slipDate = tokens[2] + " " + tokens[1] + " " + tokens[3];
 
   // Function to log the user in so they can use the program
   $scope.login = function() {
