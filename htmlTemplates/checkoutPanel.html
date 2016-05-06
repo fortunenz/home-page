@@ -1,0 +1,14 @@
+<div id="checkoutHeader">
+  <br>
+  <h2>Items</h2>
+  <hr>
+</div>
+<div slip-adjust-checkout-size id="checkoutItems">
+  <p ng-repeat="item in checkoutItems">
+    <strong>{{item.description}}:</strong><br>
+    {{item.ordered}} {{item.orderAs}}
+    <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = 0; checkoutList()">X</button>
+    <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered-1; checkoutList()">-</button>
+    <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered+1; checkoutList()">+</button>
+  </p>
+</div>

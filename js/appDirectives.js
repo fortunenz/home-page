@@ -116,3 +116,61 @@ app.directive("slipPackingSlipHeader", function() {
     templateUrl: 'htmlTemplates/packingSlipHeader.html'
   };
 });
+
+app.directive("slipCheckoutPanel", function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'htmlTemplates/checkoutPanel.html'
+  };
+});
+
+app.directive("slipAdjustCheckoutSize", function() {
+  function link(scope, element, attrs) {
+    element.css("height", window.innerHeight - 60 + "px");
+
+    angular.element(window).bind('resize', function(){
+      element.css("height", window.innerHeight - 60 + "px");
+      scope.$digest();
+    });
+  }
+
+  return {
+    restrict: 'A',
+    scope: {},
+    link: link
+  };
+});
+
+app.directive("slipAdjustInvoiceCheckoutSize", function() {
+  function link(scope, element, attrs) {
+    element.css("height", window.innerHeight - 150 + "px");
+
+    angular.element(window).bind('resize', function(){
+      element.css("height", window.innerHeight - 150 + "px");
+      scope.$digest();
+    });
+  }
+
+  return {
+    restrict: 'A',
+    scope: {},
+    link: link
+  };
+});
+
+app.directive("slipAdjustInvoiceInnerCheckoutSize", function() {
+  function link(scope, element, attrs) {
+    element.css("height", window.innerHeight - 150 - 70 + "px");
+
+    angular.element(window).bind('resize', function(){
+      element.css("height", window.innerHeight - 150 - 70 + "px");
+      scope.$digest();
+    });
+  }
+
+  return {
+    restrict: 'A',
+    scope: {},
+    link: link
+  };
+});

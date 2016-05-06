@@ -100,26 +100,11 @@
         </div>
 
         <!-- The checkout list for packing slip view -->
-        <div id="checkout"  ng-show="!invoice">
-          <div id="checkoutHeader">
-            <br>
-            <h2>Items</h2>
-            <hr>
-          </div>
-          <div id="checkoutItems">
-            <p ng-repeat="item in checkoutItems">
-              <strong>{{item.description}}:</strong><br>
-              {{item.ordered}} {{item.orderAs}}
-              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = 0; checkoutList()">X</button>
-              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered-1; checkoutList()">-</button>
-              <button type="button" class="clean-gray-btn checkoutButtons" ng-click="item.ordered = item.ordered+1; checkoutList()">+</button>
-            </p>
-          </div>
-        </div>
+        <slip-checkout-panel id="checkout"  ng-show="!invoice"></checkout-panel>
 
         <!-- The checkout list for invoice view -->
-        <div id="invoiceCheckout" ng-show="invoice">
-          <div id="invoiceInnerItems">
+        <div slip-adjust-invoice-checkout-size id="invoiceCheckout" ng-show="invoice">
+          <div slip-adjust-invoice-inner-checkout-size id="invoiceInnerItems">
             <table id="invoiceTable">
               <tr>
                 <th>Description</th>
