@@ -60,6 +60,11 @@
         <div class="col-8">
           <label>Price $</label>
           <input type="number" ng-model="selectedPrice" step="0.01" onclick="this.select()" />
+          <label>
+            per
+            <span ng-if="selectedAcc.type !== 'Invoice'">{{selectedItem.unit}}</span>
+            <span ng-if="selectedAcc.type == 'Invoice'">{{selectedItem.orderAs}}</span>
+          </label>
         </div>
         <div class="col-4 center">
           <input type="submit" value="Change" class="clean-gray-btn" />
