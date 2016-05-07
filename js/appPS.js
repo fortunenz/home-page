@@ -8,6 +8,13 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
+    var body = document.getElementsByTagName('body')[0];
+    angular.element(body).css("background-image", "url(images/spinner.gif)");
+    angular.element(body).css("background-repeat", "no-repeat");
+    var spinnerHeight = window.innerHeight/2 - 100;
+    var spinnerWidth = window.innerWidth/2 - 100;
+    angular.element(body).css("background-position", spinnerWidth + "px " + spinnerHeight + "px");
+
     $scope.access = false;
     if (authData) {
       $scope.access = true;
@@ -65,6 +72,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
       $scope.items = $firebaseArray(ref.child('items'));
 
       $scope.items.$loaded().then(function() {
+        angular.element(body).css("background", "");
         for (var i = 0, len = $scope.items.length; i < len; i++) {
           $scope.items[i].ordered = 0;
         }
