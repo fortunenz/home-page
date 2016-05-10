@@ -37,13 +37,6 @@ app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fireb
     $scope.customers = $firebaseArray(ref.child('customers'));
   });
 
-  var sortByKey = function(array, key) {
-    return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    });
-  };
-
   // Function to log the user in so they can use the program
   $scope.login = function() {
     ref.authWithPassword({
@@ -56,7 +49,6 @@ app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $fireb
       } else {
         console.log("Authenticated successfully with payload:", authData);
         $scope.access = true;
-        $scope.printableShop = [];
         $scope.$apply();
       }
     }, {

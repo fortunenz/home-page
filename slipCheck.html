@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,10 +18,22 @@
     <script src="js/appSlipCheck.js"></script>
     <script src="js/appDirectives.js"></script>
   </head>
-  <body>
+  
+  <body ng-controller="appCtrl" class="container">
     <h1 class="col-12 title">
       <a class="headerHome" href="index.html"><img class="logo"src="images/logo.png"> Slip Price Check</a>
     </h1>
 
+    <!-- The user must first login before they can use the application -->
+    <slip-login-card ng-show="!access" class="row login-card"></slip-login-card>
+
+    <!-- If the user has logged in they can use the functions -->
+    <div ng-show="access">
+      <div class="greeting">
+        <p>Hi, {{loggedEmail}}! <br class="greetingBreakline"><button slip-logout class="clean-gray-btn"></button></p>
+      </div>
+
+
+    </div>
   </body>
 </html>
