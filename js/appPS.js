@@ -11,7 +11,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
     var body = document.getElementsByTagName('body')[0];
     angular.element(body).css("background-image", "url(images/spinner.gif)");
     angular.element(body).css("background-repeat", "no-repeat");
-    var spinnerHeight = window.innerHeight/2 - 100;
+    var spinnerHeight = 170;
     var spinnerWidth = window.innerWidth/2 - 100;
     angular.element(body).css("background-position", spinnerWidth + "px " + spinnerHeight + "px");
 
