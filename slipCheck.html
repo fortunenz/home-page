@@ -18,7 +18,7 @@
     <script src="js/appSlipCheck.js"></script>
     <script src="js/appDirectives.js"></script>
   </head>
-  
+
   <body ng-controller="appCtrl" class="container">
     <h1 class="col-12 title">
       <a class="headerHome" href="index.html"><img class="logo"src="images/logo.png"> Slip Price Check</a>
@@ -33,7 +33,14 @@
         <p>Hi, {{loggedEmail}}! <br class="greetingBreakline"><button slip-logout class="clean-gray-btn"></button></p>
       </div>
 
+      <form ng-submit="findSlip()" class="row">
+        <label class="col-12 center">
+          Slip no.: <input id="slipNumber" type="text" ng-model="slipNumber" name="slipNo" onclick="this.select()"/>
+        </label>
+      </form>
+      <form>
 
+      </form>
     </div>
   </body>
 </html>

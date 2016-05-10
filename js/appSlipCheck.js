@@ -4,10 +4,13 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
   function($scope, $firebaseArray, $firebaseObject) {
   $scope.loggedEmail = "";
   $scope.loggedPass = "";
+  $scope.slipNumber = 0;
+  $scope.selectedSlip = {};
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
     $scope.access = false;
+    document.getElementById("slipNumber").disabled = true;
     if (authData) {
       if (authData.uid == "c03ed305-143f-4fca-9a42-4ebabf14e471") {
         window.location.replace("index.html");
@@ -22,6 +25,11 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
     } else {
       console.log("Client unauthenticated.");
     }
+
+    $scope.orders = $firebaseArray(ref.child("slipOrders"));
+    $scope.orders.$loaded().then(function() {
+      document.getElementById("slipNumber").disabled = false;
+    });
   });
 
   // Function to log the user in so they can use the program
@@ -41,5 +49,11 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
     }, {
       remember: "default"
     });
+  };
+
+  $scope.findSlip() {
+    for(var i = 0, len = $scope.orders.length; i < len; i++) {
+      
+    }
   };
 }]);
