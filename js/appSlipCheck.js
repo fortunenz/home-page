@@ -5,7 +5,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
   $scope.loggedEmail = "";
   $scope.loggedPass = "";
   $scope.slipNumber = 0;
-  $scope.selectedSlip = {};
+  $scope.selectedSlip = undefined;
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -51,9 +51,15 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
     });
   };
 
-  $scope.findSlip() {
+  $scope.findSlip = function() {
     for(var i = 0, len = $scope.orders.length; i < len; i++) {
-      
+      if($scope.slipNumber === $scope.orders[i].slipNo) {
+        $scope.selectedSlip = $scope.orders[i];
+      }
     }
+  };
+
+  $scope.savePriceChanges = function() {
+    
   };
 }]);

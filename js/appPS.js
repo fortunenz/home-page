@@ -248,6 +248,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
           tempJson.short =  $scope.selectedCustomer.short;
           tempJson.notes = $scope.notes;
           tempJson.orderNo = $scope.orderNo;
+          tempJson.slipNo = $scope.slipNumber.$value;
 
           for ( i = 0; i < $scope.items.length; i++) {
             if ($scope.items[i].ordered > 0) {

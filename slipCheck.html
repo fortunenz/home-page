@@ -35,11 +35,11 @@
 
       <form ng-submit="findSlip()" class="row">
         <label class="col-12 center">
-          Slip no.: <input id="slipNumber" type="text" ng-model="slipNumber" name="slipNo" onclick="this.select()"/>
+          Slip no.: <input id="slipNumber" type="number" ng-model="slipNumber" name="slipNo" onclick="this.select()"/>
         </label>
       </form>
-      <form>
-
+      <form ng-submit="savePriceChanges()" ng-if="selectedSlip !== undefined">
+        
       </form>
     </div>
   </body>
