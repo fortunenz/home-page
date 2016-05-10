@@ -1,8 +1,5 @@
 var app = angular.module('app', ["firebase"]);
 
-// Connects to the firebase server
-var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
-
 app.controller('priceCtrl', ['$scope', '$firebaseArray', function($scope, $firebaseArray) {
   $scope.loggedPass = "";
   $scope.selectedAccNo = 0;

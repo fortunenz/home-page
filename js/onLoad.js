@@ -1,10 +1,3 @@
-var sortByKey = function(array, key) {
-  return array.sort(function(a, b) {
-      var x = a[key]; var y = b[key];
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-  });
-};
-
 // Disable mousewheel on a input number field when in focus so the user
 // doesn't accidently scroll values by incemrent of 0.01
 var stopScroll = function() {

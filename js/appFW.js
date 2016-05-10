@@ -1,8 +1,5 @@
 var app = angular.module("checklist", ["firebase"]);
 
-// Connects to the firebase server
-var ref = new Firebase('https://popping-torch-7294.firebaseio.com/');
-
 app.controller("appCtrl", ["$scope", "$compile", "$firebaseArray", "$firebaseObject",
   function($scope, $compile, $firebaseArray, $firebaseObject) {
 
