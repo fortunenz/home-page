@@ -80,7 +80,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject", "$time
 
       $scope.slipNumber = $firebaseObject(ref.child('slipNumber'));
 
-      $scope.slipOrders = $firebaseArray(ref.child('slipOrders'));
+      $scope.slipOrders = $firebaseArray(ref.child('slipOrders').limitToLast(200));
     } else {
       console.log("Client unauthenticated.");
     }

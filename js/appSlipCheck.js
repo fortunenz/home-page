@@ -2,8 +2,6 @@ var app = angular.module("app", ["firebase"]);
 
 app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
   function($scope, $firebaseArray, $firebaseObject) {
-  $scope.loggedEmail = "";
-  $scope.loggedPass = "";
   $scope.slipNumber = 0;
   $scope.selectedSlip = undefined;
 
@@ -26,7 +24,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
       console.log("Client unauthenticated.");
     }
 
-    $scope.orders = $firebaseArray(ref.child("slipOrders"));
+    $scope.orders = $firebaseArray(ref.child("slipOrders").limitToLast(500));
     $scope.orders.$loaded().then(function() {
       document.getElementById("slipNumber").disabled = false;
     });
@@ -57,9 +55,13 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
         $scope.selectedSlip = $scope.orders[i];
       }
     }
+
+    if ($scope.selectedSlip.slipNo !== $scope.slipNumber) {
+      console.log("We couldn't find the slip you were looking for");
+    }
   };
 
   $scope.savePriceChanges = function() {
-    
+
   };
 }]);
