@@ -91,3 +91,21 @@ app.filter("carton", function() {
     return value;
   };
 });
+
+app.filter("invoiceUnitPrice", function() {
+  return function(price, item) {
+    var value;
+
+    if (item.unit == "1000" && item.orderAs !== "1000") {
+      value = price/item.quantity*1000;
+      return value;
+    } else if (item.unit == "Roll" && item.orderAs == "ctn") {
+      value = price/item.quantity;
+      return value;
+    } else if (item.unit == "Box" && item.orderAs == "ctn") {
+      value = price/item.quantity;
+    }
+
+    return price;
+  };
+});

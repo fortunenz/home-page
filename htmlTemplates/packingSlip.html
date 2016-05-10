@@ -12,7 +12,7 @@
       <th class="packingT" ng-if="invoice !== true">Packaging</th>
       <th class="packingT">Quantity</th>
       <th class="packingT">Carton</th>
-      <th class="packingT" ng-if="invoice === true">Price</th>
+      <th class="packingT" ng-if="invoice === true">Unit Price</th>
       <th class="packingT" ng-if="invoice === true">Total</th>
     </tr>
     <tr ng-repeat="item in items" ng-if="item.ordered > 0">
@@ -21,7 +21,7 @@
       <td class="packingT" ng-if="invoice !== true">{{item.packaging}}</td>
       <td class="packingT">{{item.ordered | quantity:item}}</td>
       <td class="packingT">{{item.ordered | carton:item}}</td>
-      <td class="packingT" ng-if="invoice === true">{{item.tempPrice | currency}}</td>
+      <td class="packingT" ng-if="invoice === true">{{item.tempPrice | invoiceUnitPrice:item | currency}}</td>
       <td class="packingT" ng-if="invoice === true">{{item.tempPrice * item.ordered | currency}}</td>
     </tr>
   </table>
