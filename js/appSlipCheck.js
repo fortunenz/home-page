@@ -1,7 +1,7 @@
 var app = angular.module("app", ["firebase"]);
 
-app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
-  function($scope, $firebaseArray, $firebaseObject) {
+app.controller("appCtrl", ["$scope", "$firebaseArray",
+  function($scope, $firebaseArray) {
   $scope.slipNumber = 0;
   $scope.selectedSlip = undefined;
   $scope.selectedCustomer = undefined;

@@ -41,7 +41,7 @@
       <form  class="row" ng-submit="savePriceChanges()" ng-if="selectedSlip !== undefined">
         <h2>Customer Name: {{selectedCustomer.name}}</h2>
         <label class="col-12" ng-repeat="(key, val) in selectedSlip">
-          {{key}}: <input type="number" ng-model="selectedSlip[key]" step="0.01" onclick="this.select()" />
+          {{key}}: $<input type="number" ng-model="selectedSlip[key]" step="0.01" onclick="this.select()" /> per unit
         </label>
         <div class="col-4 center">
           <input type="submit" value="Save" class="clean-gray-btn" />
