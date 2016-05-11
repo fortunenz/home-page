@@ -4,6 +4,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
   function($scope, $firebaseArray, $firebaseObject) {
   $scope.slipNumber = 0;
   $scope.selectedSlip = undefined;
+  $scope.selectedCustomer = undefined;
 
   // Firebase queries ----------------------------------------------------------
   ref.onAuth(function(authData) {
@@ -28,6 +29,8 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
     $scope.orders.$loaded().then(function() {
       document.getElementById("slipNumber").disabled = false;
     });
+
+    $scope.customers = $firebaseArray(ref.child("customers"));
   });
 
   // Function to log the user in so they can use the program
@@ -50,14 +53,32 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
   };
 
   $scope.findSlip = function() {
-    for(var i = 0, len = $scope.orders.length; i < len; i++) {
-      if($scope.slipNumber === $scope.orders[i].slipNo) {
+    for (var i = 0, len = $scope.orders.length; i < len; i++) {
+      if ($scope.orders[i].slipNo === $scope.slipNumber) {
         $scope.selectedSlip = $scope.orders[i];
       }
     }
 
-    if ($scope.selectedSlip.slipNo !== $scope.slipNumber) {
-      console.log("We couldn't find the slip you were looking for");
+    var tempCustomer = $scope.selectedSlip.short;
+    for (var i = 0, len = $scope.customers.length; i < len; i++) {
+      if ($scope.customers[i].short == tempCustomer) {
+        $scope.selectedCustomer = $scope.customers[i];
+      }
+    }
+
+    delete $scope.selectedSlip["$id"];
+    delete $scope.selectedSlip["$priority"];
+    delete $scope.selectedSlip["notes"];
+    delete $scope.selectedSlip["orderNo"];
+    delete $scope.selectedSlip["short"];
+    delete $scope.selectedSlip["slipNo"];
+
+    for (key in $scope.selectedSlip) {
+      if ($scope.selectedCustomer.hasOwnProperty(key)) {
+        $scope.selectedSlip[key] = $scope.selectedCustomer[key];
+      } else {
+        $scope.selectedSlip[key] = 0;
+      }
     }
   };
 
