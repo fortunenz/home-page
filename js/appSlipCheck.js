@@ -83,6 +83,15 @@ app.controller("appCtrl", ["$scope", "$firebaseArray", "$firebaseObject",
   };
 
   $scope.savePriceChanges = function() {
-
+    for (key in $scope.selectedSlip) {
+      if ($scope.selectedSlip[key] !== 0 && $scope.selectedSlip[key] !== $scope.selectedCustomer[key]) {
+        var tempJson = {};
+        tempJson[key] = $scope.selectedSlip[key];
+        ref.child("customers").child($scope.selectedCustomer.$id).update(
+          tempJson
+        );
+        console.log("Price of " + key + " has been changed to $" + tempJson[key] + " for the customer " + $scope.selectedCustomer.name);
+      }
+    }
   };
 }]);
