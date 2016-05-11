@@ -19,11 +19,6 @@
 .clean-gray-btn-shop {
   width: 100%; }
 
-.clean-gray-btn-increment {
-  width: 25px;
-  height: 25px;
-  margin-left: 5px; }
-
 .shopList {
   display: -webkit-flex;
   display: -ms-flexbox;

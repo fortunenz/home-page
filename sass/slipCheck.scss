@@ -1,0 +1,45 @@
+form label {
+  font-size: 20px;
+}
+
+form input {
+  font-size: 14px;
+}
+
+.findSlipButton {
+  padding-top: 25px;
+}
+
+.itemLine {
+  width: 90%;
+  position: relative;
+  left: 10%;
+}
+
+.itemListSave {
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 504px) {
+  .findSlipButton {
+    padding-top: 0px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #itemListTitleBreak {
+    display: none;
+  }
+
+  form input {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 507px) {
+  .itemLine {
+    width: 70%;
+    position: relative;
+    left: 30%;
+  }
+}

@@ -14,6 +14,11 @@ ul {
 li {
   margin-top: 5px; }
 
+.clean-gray-btn-increment {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px; }
+
 /* Styling for button that takes user back to top of the page */
 .backToTop {
   position: fixed;
