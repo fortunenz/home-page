@@ -104,6 +104,7 @@ app.filter("invoiceUnitPrice", function() {
       return value;
     } else if (item.unit == "Box" && item.orderAs == "ctn") {
       value = price/item.quantity;
+      return value;
     }
 
     return price;
