@@ -93,5 +93,7 @@ app.controller("appCtrl", ["$scope", "$firebaseArray",
         console.log("Price of " + key + " has been changed to $" + tempJson[key] + " for the customer " + $scope.selectedCustomer.name);
       }
     }
+
+    alert("Prices have been changed!");
   };
 }]);
