@@ -53,9 +53,22 @@ app.controller("appCtrl", ["$scope", "$firebaseArray",
   };
 
   $scope.findSlip = function() {
+    if ($scope.selectedSlip !== undefined) {
+      if ($scope.selectedSlip.slipNo == $scope.slipNumber) {
+        return;
+      }
+    }
+
+    if ($scope.slipNumber === 0) {
+      return;
+    }
+
     for (var i = 0, len = $scope.orders.length; i < len; i++) {
       if ($scope.orders[i].slipNo === $scope.slipNumber) {
-        $scope.selectedSlip = $scope.orders[i];
+        $scope.selectedSlip = {};
+        for (var attr in $scope.orders[i]) {
+          $scope.selectedSlip[attr] = $scope.orders[i][attr];
+        }
       }
     }
 
@@ -66,12 +79,12 @@ app.controller("appCtrl", ["$scope", "$firebaseArray",
       }
     }
 
-    delete $scope.selectedSlip["$id"];
-    delete $scope.selectedSlip["$priority"];
-    delete $scope.selectedSlip["notes"];
-    delete $scope.selectedSlip["orderNo"];
-    delete $scope.selectedSlip["short"];
-    delete $scope.selectedSlip["slipNo"];
+    delete $scope.selectedSlip.$id;
+    delete $scope.selectedSlip.$priority;
+    delete $scope.selectedSlip.notes;
+    delete $scope.selectedSlip.orderNo;
+    delete $scope.selectedSlip.short;
+    delete $scope.selectedSlip.slipNo;
 
     for (key in $scope.selectedSlip) {
       if ($scope.selectedCustomer.hasOwnProperty(key)) {
